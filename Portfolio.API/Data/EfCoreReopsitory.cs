@@ -13,7 +13,7 @@ namespace Portfolio.API.Data
         {
             this.context = context ?? throw new ArgumentException(nameof(context));
         }
-        public IQueryable<Project> Projects => throw new NotImplementedException();
+        public IQueryable<Project> Projects => context.Projects;
 
         public async Task SaveProjectAsync(Project project)
         {
