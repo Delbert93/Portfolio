@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.API", "Portfolio.API\Portfolio.API.csproj", "{56628B74-2907-478E-B943-97A6183C5F2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.API", "Portfolio.API\Portfolio.API.csproj", "{56628B74-2907-478E-B943-97A6183C5F2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.Blazor", "Portfolio.Blazor\Portfolio.Blazor.csproj", "{36965779-0790-46B4-9634-6C21CD0DC879}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{56628B74-2907-478E-B943-97A6183C5F2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56628B74-2907-478E-B943-97A6183C5F2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56628B74-2907-478E-B943-97A6183C5F2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36965779-0790-46B4-9634-6C21CD0DC879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36965779-0790-46B4-9634-6C21CD0DC879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36965779-0790-46B4-9634-6C21CD0DC879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36965779-0790-46B4-9634-6C21CD0DC879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
