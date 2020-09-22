@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Portfolio.API.Models;
+using Portfolio.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;

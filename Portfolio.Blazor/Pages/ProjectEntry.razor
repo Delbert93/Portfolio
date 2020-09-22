@@ -1,4 +1,6 @@
 ﻿@page "/ProjectEntry"
+@inject HttpClient http
+@using Portfolio.Shared
 
 <h3>ProjectEntry</h3>
 <label>Project Name</label>
@@ -14,16 +16,61 @@
 <br>
 <br>
 <input type="date" @bind="completionDate"/>
+<label>@completionDate</label>
 <button @onclick="addProjectToDatabase">Submite Project!</button>
 
 @code {
-    private string title;
-    private string requirement;
-    private string design;
+    private string title = " ";
+    private string requirement = " ";
+    private string design = " ";
     private DateTime completionDate;
 
-    private void addProjectToDatabase()
+    private IEnumerable<Project> projects = new List<Project>();
+
+    private async Task addProjectToDatabase()
     {
+        var project = new Portfolio.Shared.Project
+        {
+            Title = title,
+            Requirements = requirement,
+            Design = design,
+            CompletionDate = completionDate
+        };
+        try
+        {
+            var response = await http.PostAsJsonAsync("/project", project);
+        }
+        catch(Exception e)
+        {
+
+        }
+
+        await RefreshProjectsAsync();
+    }
+
+
+
+    private async Task loadProjects()
+    {
+        var response = await http.GetStringAsync("/project/");
+
+
+
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshProjectsAsync();
+    }
+
+
+
+    private async Task RefreshProjectsAsync()
+    {
+        projects = await http.GetFromJsonAsync<IEnumerable<Project>>("/project/");
+    }
 
     }
 }
