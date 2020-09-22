@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.API", "Portfolio.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.Blazor", "Portfolio.Blazor\Portfolio.Blazor.csproj", "{36965779-0790-46B4-9634-6C21CD0DC879}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.Shared", "Portfolio.Shared\Portfolio.Shared.csproj", "{AA215BE6-CEE0-47C5-9EFF-7FC4309A472D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{36965779-0790-46B4-9634-6C21CD0DC879}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36965779-0790-46B4-9634-6C21CD0DC879}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36965779-0790-46B4-9634-6C21CD0DC879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA215BE6-CEE0-47C5-9EFF-7FC4309A472D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA215BE6-CEE0-47C5-9EFF-7FC4309A472D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA215BE6-CEE0-47C5-9EFF-7FC4309A472D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA215BE6-CEE0-47C5-9EFF-7FC4309A472D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
