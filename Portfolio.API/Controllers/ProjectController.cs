@@ -41,5 +41,11 @@ namespace Portfolio.API.Controllers
                 Requirements = "No, seriously. Do that."
             });
         }
+
+        [HttpPost()]
+        public async Task Post(Project project)
+        {
+            await repository.SaveProjectAsync(project);
+        }
     }
 }

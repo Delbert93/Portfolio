@@ -19,7 +19,7 @@ namespace Portfolio.API.Migrations
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("Portfolio.API.Models.Project", b =>
+            modelBuilder.Entity("Portfolio.Shared.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

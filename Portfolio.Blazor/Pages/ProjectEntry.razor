@@ -16,10 +16,10 @@
 <br>
 <br>
 <input type="date" @bind="completionDate"/>
-<label>@completionDate</label>
 <button @onclick="addProjectToDatabase">Submite Project!</button>
 
-@code {
+@code 
+{
     private string title = " ";
     private string requirement = " ";
     private string design = " ";
@@ -40,9 +40,9 @@
         {
             var response = await http.PostAsJsonAsync("/project", project);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-
+            Console.WriteLine(e.ToString());
         }
 
         await RefreshProjectsAsync();
@@ -53,9 +53,6 @@
     private async Task loadProjects()
     {
         var response = await http.GetStringAsync("/project/");
-
-
-
     }
 
 
@@ -72,5 +69,4 @@
         projects = await http.GetFromJsonAsync<IEnumerable<Project>>("/project/");
     }
 
-    }
 }
