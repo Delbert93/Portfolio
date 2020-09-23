@@ -31,14 +31,18 @@ namespace Portfolio.API.Controllers
             await repository.SaveProjectAsync(new Project
             {
                 Title = "Project 1",
-                Requirements = "Demonstrate APIs with a database"
+                Requirements = "You got this",
+                Design = "Its amazing",
+                //CompletionDate = new DateTime(2020, 23, 9)
             });
 
 
             await repository.SaveProjectAsync(new Project
             {
                 Title = "Project 2",
-                Requirements = "No, seriously. Do that."
+                Requirements = "You got this.",
+                Design = "Its amazing",
+                //CompletionDate = new DateTime(2020, 23, 9)
             });
         }
 

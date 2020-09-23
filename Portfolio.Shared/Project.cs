@@ -17,7 +17,7 @@ namespace Portfolio.Shared
         [JsonPropertyName("design")]
         public string Design { get; set; }
 
-        [JsonPropertyName("completionDate")]
+        [JsonPropertyName("completiondate")]
         public DateTime CompletionDate { get; set; }
     }
 }
