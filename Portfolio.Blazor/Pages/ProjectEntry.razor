@@ -32,13 +32,13 @@
 
 @code 
 {
-        private string title = " ";
-        private string requirement = " ";
-        private string design = " ";
-        private DateTime completionDate;
+    private string title = " ";
+    private string requirement = " ";
+    private string design = " ";
+    private DateTime completionDate;
 
 
-        private IEnumerable<Project> projects { get; set;}
+    private IEnumerable<Project> projects { get; set;}
 
     private async Task addProjectToDatabase()
     {
@@ -59,6 +59,11 @@
         }
 
         await RefreshProjectsAsync();
+    }
+
+    private async Task deleteProjectFromDatabase()
+    {
+
     }
 
 

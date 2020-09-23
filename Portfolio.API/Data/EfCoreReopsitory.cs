@@ -15,11 +15,12 @@ namespace Portfolio.API.Data
         }
         public IQueryable<Project> Projects => context.Projects;
 
-        //public async Task DeleteProjectAsync(Project project)
-        //{
-        //    context.Projects.Remove(project);
-        //    await context.DeleteProjectAsync();
-        //}
+        public async Task DeleteProjectAsync(int id)
+        {
+            var project  = await context.Projects.FindAsync(id);
+            context.Projects.Remove(project);
+            await context.SaveChangesAsync();
+        }
 
         public async Task SaveProjectAsync(Project project)
         {
