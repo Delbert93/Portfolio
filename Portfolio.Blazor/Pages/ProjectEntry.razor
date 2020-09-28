@@ -1,5 +1,6 @@
 ﻿@page "/ProjectEntry"
 @inject HttpClient http
+@inject ProjectApiService portfoiliApi 
 @using Portfolio.Shared
 
 <h3>ProjectEntry</h3>
@@ -24,9 +25,8 @@
     {
         <br />
         <label>@st.Title</label>
-        <label>@st.Id</label>
         <button>Edit</button>
-        <button>Delete</button>
+        <button @onclick="(() => deleteProjectFromDatabase(st))">Delete</button>
     }
 </div>
 
@@ -61,10 +61,11 @@
         await RefreshProjectsAsync();
     }
 
-    //private async Task deleteProjectFromDatabase()
-    //{
-
-    //}
+    private async Task deleteProjectFromDatabase(Project project)
+    {
+        await portfoiliApi.DeleteAsync(project);
+        await RefreshProjectsAsync();
+    }
 
 
 
