@@ -33,7 +33,7 @@ namespace Portfolio.Blazor
             await client.PostAsJsonAsync("/project/delete", project);
         }
 
-        public async Task<Project> GetById(string id)
+        public async Task<Project> GetById(int id)
         {
             var response = await client.GetAsync($"/project/getbyid/?id={id}");
             return await client.GetFromJsonAsync<Project>($"/project/getbyid/?id={id}");

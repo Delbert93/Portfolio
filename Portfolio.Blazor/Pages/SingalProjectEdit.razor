@@ -1,5 +1,17 @@
-﻿<h3>SingalProjectEdit</h3>
+﻿@page "/ProjectEntry/{ProjectId:int}"
+@inject ProjectApiService ApiService
+@using Portfolio.Shared
+<h3>SingleProjectEdit</h3>
 
 @code {
+    [Parameter]
+    public int ProjectId { get; set; }
 
+    public Project NewProject { get; set; }
+
+
+    protected async Task OnInitilizedAsync()
+    {
+        NewProject = await ApiService.GetById(ProjectId);
+    }
 }
