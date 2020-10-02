@@ -1,6 +1,7 @@
 ﻿@page "/ProjectEntry"
 @inject HttpClient http
 @inject ProjectApiService portfoiliApi 
+@inject NavigationManager navManager
 @using Portfolio.Shared
 
 <h3>ProjectEntry</h3>
@@ -24,7 +25,7 @@
     @foreach (var st in projects ?? new Project[] { })
     {
         <br />
-        <label>@st.Title</label>
+        <label><a class="text-primary" @onclick="() => NavigateToSingalProjectPage(st.Id)">  @st.Title </a></label>
         <button>Edit</button>
         <button @onclick="(() => deleteProjectFromDatabase(st))">Delete</button>
     }
@@ -59,6 +60,11 @@
         }
 
         await RefreshProjectsAsync();
+    }
+
+    public void NavigateToSingalProjectPage(int Id)
+    {
+        navManager.NavigateTo("ProjectEntry/" + Id);
     }
 
     private async Task deleteProjectFromDatabase(Project project)

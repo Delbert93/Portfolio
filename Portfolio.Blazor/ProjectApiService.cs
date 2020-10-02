@@ -33,10 +33,17 @@ namespace Portfolio.Blazor
             await client.PostAsJsonAsync("/project/delete", project);
         }
 
-        public async Task<Project> GetById(string id)
+        public async Task<Project> GetById(int id)
         {
-            var response = await client.GetAsync($"/project/getbyid/?id={id}");
-            return await client.GetFromJsonAsync<Project>($"/project/getbyid/?id={id}");
+            var response = await client.GetAsync($"/project/?id={id}");
+            return await client.GetFromJsonAsync<Project>($"/project/?id={id}");
+        }
+
+        public async Task<Project> GetProjectById(int Id)
+        {
+            var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("/project");
+            var project = projects.Where(proj => proj.Id == Id).First();
+            return project;
         }
 
         public async Task Update(Project project)

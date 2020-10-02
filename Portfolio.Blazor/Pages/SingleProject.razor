@@ -1,0 +1,46 @@
+﻿@page "/ProjectEntry/{ProjectId:int}"
+@inject Portfolio.Blazor.ProjectApiService ApiService
+@inject NavigationManager navManager
+@using Portfolio.Shared
+<h3>SingleProject</h3>
+
+<label>Project Title:</label>
+<label>@Title</label>
+<br />
+<br />
+
+<label>Project Requirementes:</label>
+<br />
+<label>@Requirementes</label>
+<br />
+
+<label>Project Design:</label>
+<br />
+<label>@Desgin</label>
+<br />
+
+<label>Project CompletionDate: </label>
+<label>@CompletionDate</label>
+<br />
+
+@code {
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    public Project CurrentProject { get; set; }
+    public string Title { get; set; }
+    public string Requirementes { get; set; }
+    public string Desgin { get; set; }
+    public DateTime CompletionDate { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentProject = await ApiService.GetProjectById(ProjectId);
+
+        Title = CurrentProject.Title;
+        Requirementes = CurrentProject.Requirements;
+        Desgin = CurrentProject.Design;
+        CompletionDate = CurrentProject.CompletionDate;
+    }
+
+}
