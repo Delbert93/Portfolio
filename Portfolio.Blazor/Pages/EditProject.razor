@@ -1,4 +1,4 @@
-﻿@page "/ProjectEntry/edit/{ProjectId:int}"
+﻿@page "/projectentry/edit/{ProjectId:int}"
 @inject Portfolio.Blazor.ProjectApiService ApiService
 @inject NavigationManager navManager
 @using Portfolio.Shared
@@ -55,7 +55,7 @@
         CurrentProject.CompletionDate = CompletionDate;
 
         await ApiService.Edit(CurrentProject);
-        navManager.NavigateTo("/ProjectEntry");
+        navManager.NavigateTo("/projectentry");
     }
 
 }
