@@ -33,12 +33,6 @@ namespace Portfolio.Blazor
             await client.PostAsJsonAsync("/project/delete", project);
         }
 
-        public async Task<Project> GetById(int id)
-        {
-            var response = await client.GetAsync($"/project/?id={id}");
-            return await client.GetFromJsonAsync<Project>($"/project/?id={id}");
-        }
-
         public async Task<Project> GetProjectById(int Id)
         {
             var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("/project");
@@ -46,9 +40,9 @@ namespace Portfolio.Blazor
             return project;
         }
 
-        public async Task Update(Project project)
+        public async Task Edit(Project project)
         {
-            await client.PostAsJsonAsync("/project/update", project);
+            await client.PostAsJsonAsync("/project/edit", project);
         }
     }
 }

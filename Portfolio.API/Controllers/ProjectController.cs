@@ -58,6 +58,12 @@ namespace Portfolio.API.Controllers
             await repository.DeleteProjectAsync(project.Id);
         }
 
+        [HttpPost("[action]")]
+        public async Task Edit(Project project)
+        {
+            await repository.EditProjectAsync(project);
+        }
+
         [HttpPost()]
         public async Task Post(Project project)
         {

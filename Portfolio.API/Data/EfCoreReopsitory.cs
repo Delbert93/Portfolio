@@ -23,6 +23,12 @@ namespace Portfolio.API.Data
             await context.SaveChangesAsync();
         }
 
+        public async Task EditProjectAsync(Project project)
+        {
+            context.Projects.Update(project);
+            await context.SaveChangesAsync();
+        }
+
         public async Task SaveProjectAsync(Project project)
         {
             context.Projects.Add(project);
