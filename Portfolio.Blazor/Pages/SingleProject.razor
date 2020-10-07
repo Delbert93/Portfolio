@@ -19,6 +19,18 @@
 <label>@Desgin</label>
 <br />
 
+<label>Langauges:</label>
+<br />
+<div>
+    <label>Languages should show here</label>
+    @foreach (var pla in ProjectLanguages)
+    {
+        <br />
+        <label> @pla.Language.Name</label>
+    }
+</div>
+<br />
+
 <label>Project CompletionDate: </label>
 <label>@CompletionDate</label>
 <br />
@@ -33,6 +45,8 @@
     public string Desgin { get; set; }
     public DateTime CompletionDate { get; set; }
 
+    public List<ProjectLanguage> ProjectLanguages { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         CurrentProject = await ApiService.GetProjectById(ProjectId);
@@ -40,6 +54,7 @@
         Title = CurrentProject.Title;
         Requirementes = CurrentProject.Requirements;
         Desgin = CurrentProject.Design;
+        ProjectLanguages = CurrentProject.ProjectLanguages;
         CompletionDate = CurrentProject.CompletionDate;
     }
 

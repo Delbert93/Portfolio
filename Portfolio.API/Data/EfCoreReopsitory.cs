@@ -26,7 +26,19 @@ namespace Portfolio.API.Data
             {
                 case Project.LanguageCategory:
                     var language = await context.Languages.FirstOrDefaultAsync(la => la.Name == assignRequest.Name);
-
+                    if(language == null)
+                    {
+                        language = new Language { Name = assignRequest.Name };
+                        context.Languages.Add(language);
+                        await context.SaveChangesAsync();
+                    }
+                    var lc = new ProjectLanguage
+                    {
+                        ProjectId = assignRequest.ProjectId,
+                        LanguageId = language.Id
+                    };
+                    context.ProjectLanguages.Add(lc);
+                    await context.SaveChangesAsync();
                     break;
                 default:
                     break;

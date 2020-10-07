@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Portfolio.Shared.ViewModels;
     
 namespace Portfolio.API.Controllers
 {
@@ -21,7 +22,15 @@ namespace Portfolio.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IEnumerable<Project>> Get() => await repository.Projects.ToListAsync();
+        public async Task<List<ProjectViewModel>> Get() 
+        {
+            return await repository.Projects
+                .Include(p => p.ProjectLanguages)
+                    .ThenInclude(lan => lan.Language)
+                .Select(p => new ProjectViewModel(p))
+                .ToListAsync();
+        }
+            
 
         //Temp data for now.
         //TODO remove later 
@@ -32,15 +41,6 @@ namespace Portfolio.API.Controllers
             {
                 Title = "Project 1",
                 Requirements = "You got this",
-                Design = "Its amazing",
-                //CompletionDate = new DateTime(2020, 23, 9)
-            });
-
-
-            await repository.SaveProjectAsync(new Project
-            {
-                Title = "Project 2",
-                Requirements = "You got this.",
                 Design = "Its amazing",
                 //CompletionDate = new DateTime(2020, 23, 9)
             });

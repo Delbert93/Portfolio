@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Portfolio.Shared.ViewModels
 {
-    class ProjectViewModel
+    public class ProjectViewModel
     {
         public ProjectViewModel()
         {
