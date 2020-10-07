@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Portfolio.Shared;
+using Portfolio.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,9 +54,10 @@ namespace Portfolio.API.Data
             await context.SaveChangesAsync();
         }
 
-        public async Task EditProjectAsync(Project project)
+        public async Task EditProjectAsync(ProjectViewModel project)
         {
-            context.Projects.Update(project);
+            //TODO assign correct information to project
+            //context.Projects.Update(project);
             await context.SaveChangesAsync();
         }
 

@@ -17,6 +17,7 @@ namespace Portfolio.Blazor
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
+            //TODO get this to work with base
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5005") });
             builder.Services.AddScoped<ProjectApiService>();
 

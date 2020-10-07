@@ -30,6 +30,12 @@ namespace Portfolio.API.Controllers
                 .Select(p => new ProjectViewModel(p))
                 .ToListAsync();
         }
+
+        [HttpPost("[action]")]
+        public async Task AssginLangauge(AssignRequest assignRequest)
+        {
+            await repository.AssignCategoryAsync(assignRequest);
+        }
             
 
         //Temp data for now.
@@ -59,7 +65,7 @@ namespace Portfolio.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task Edit(Project project)
+        public async Task Edit(ProjectViewModel project)
         {
             await repository.EditProjectAsync(project);
         }

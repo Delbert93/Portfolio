@@ -2,6 +2,7 @@
 @inject Portfolio.Blazor.ProjectApiService ApiService
 @inject NavigationManager navManager
 @using Portfolio.Shared
+@using Portfolio.Shared.ViewModels
 <h3>EditProject</h3>
 
 <label>Project Title:</label>
@@ -25,26 +26,36 @@
 <input typp="date" @bind="CompletionDate">
 <br />
 
+@*TODO On saving with the language we need to save the lannguage to the database for language, the project to project and create
+    the association between the two in the projectLanguage*@
+<label>Language:</label>
+<input type="text" @bind="langaugeName">
+<button @onclick="AddLanguage">Add Language</button>
+
 <button @onclick="SaveChanges">Update</button>
 
 @code {
     [Parameter]
     public int ProjectId { get; set; }
 
-    public Project CurrentProject { get; set; }
+    public ProjectViewModel CurrentProject { get; set; }
     public string Title { get; set; }
     public string Requirementes { get; set; }
     public string Desgin { get; set; }
     public DateTime CompletionDate { get; set; }
+    private IEnumerable<LanguageViewModel> Languages { get; set; }
+
+    private string langaugeName = " ";
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentProject = await ApiService.GetProjectById(ProjectId);
+        await RefreshProjectsAsync();
+    }
 
-        Title = CurrentProject.Title;
-        Requirementes = CurrentProject.Requirements;
-        Desgin = CurrentProject.Design;
-        CompletionDate = CurrentProject.CompletionDate;
+    private async Task AddLanguage()
+    {
+        await ApiService.AssignLanguage(ProjectId, langaugeName);
+        await RefreshProjectsAsync();
     }
 
     public async Task SaveChanges()
@@ -56,6 +67,16 @@
 
         await ApiService.Edit(CurrentProject);
         navManager.NavigateTo("https://delbert93.github.io/Portfolio/projectentry");
+    }
+
+    private async Task RefreshProjectsAsync()
+    {
+        CurrentProject = await ApiService.GetProjectById(ProjectId);
+        Title = CurrentProject.Title;
+        Requirementes = CurrentProject.Requirements;
+        Desgin = CurrentProject.Design;
+        CompletionDate = CurrentProject.CompletionDate;
+        Languages = CurrentProject.Languages;
     }
 
 }

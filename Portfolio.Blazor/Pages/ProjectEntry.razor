@@ -17,12 +17,6 @@
 <input type="text" @bind="design">
 <br>
 <br>
-@*TODO On saving with the language we need to save the lannguage to the database for language, the project to project and create
-the association between the two in the projectLanguage*@
-<label>Language:</label>
-<input type="text" @bind="langaugeName">
-<br>
-<br>
 <input type="date" @bind="completionDate" />
 <button @onclick="addProjectToDatabase">Submite Project!</button>
 
@@ -56,17 +50,6 @@ the association between the two in the projectLanguage*@
             Requirements = requirement,
             Design = design,
             CompletionDate = completionDate
-        };
-        var language = new Portfolio.Shared.Language
-        {
-            Name = langaugeName
-        };
-        var projLang = new Portfolio.Shared.ProjectLanguage
-        {
-            ProjectId = project.Id,
-            Project = project,
-            LanguageId = language.Id,
-            Language = language
         };
         try
         {

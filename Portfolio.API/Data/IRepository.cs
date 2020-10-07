@@ -1,4 +1,5 @@
 ﻿using Portfolio.Shared;
+using Portfolio.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Portfolio.API.Data
 
         Task SaveProjectAsync(Project project);
         Task DeleteProjectAsync(int id);
-        Task EditProjectAsync(Project project);
+        Task EditProjectAsync(ProjectViewModel project);
         Task AssignCategoryAsync(AssignRequest assignRequest);
     }
 }
