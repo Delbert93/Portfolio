@@ -7,10 +7,10 @@ namespace Portfolio.Shared.ViewModels
     public class LanguageViewModel
     {
         public LanguageViewModel() { }
-        public LanguageViewModel(Language l)
+        public LanguageViewModel(Language language)
         {
-            Id = l.Id;
-            Name = l.Name;
+            Id = language.Id;
+            Name = language.Name;
         }
 
         public int Id { get; set; }

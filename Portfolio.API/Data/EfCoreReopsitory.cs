@@ -1,4 +1,5 @@
-﻿using Portfolio.Shared;
+﻿using Microsoft.EntityFrameworkCore;
+using Portfolio.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,23 @@ namespace Portfolio.API.Data
             this.context = context ?? throw new ArgumentException(nameof(context));
         }
         public IQueryable<Project> Projects => context.Projects;
+
+        public IQueryable<Language> Languages => throw new NotImplementedException();
+
+        public IQueryable<ProjectLanguage> ProjectLanguages => throw new NotImplementedException();
+
+        public async Task AssignCategoryAsync(AssignRequest assignRequest)
+        {
+            switch (assignRequest.CategoryType)
+            {
+                case Project.LanguageCategory:
+                    var language = await context.Languages.FirstOrDefaultAsync(la => la.Name == assignRequest.Name);
+
+                    break;
+                default:
+                    break;
+            }
+        }
 
         public async Task DeleteProjectAsync(int id)
         {

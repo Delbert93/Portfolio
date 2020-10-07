@@ -9,9 +9,13 @@ namespace Portfolio.API.Data
     public interface IRepository
     {
         IQueryable<Project> Projects { get; }
-        Task SaveProjectAsync(Project project);
+        IQueryable<Language> Languages { get; }
 
+        IQueryable<ProjectLanguage> ProjectLanguages { get; }
+
+        Task SaveProjectAsync(Project project);
         Task DeleteProjectAsync(int id);
         Task EditProjectAsync(Project project);
+        Task AssignCategoryAsync(AssignRequest assignRequest);
     }
 }
