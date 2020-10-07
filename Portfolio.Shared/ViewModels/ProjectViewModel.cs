@@ -19,6 +19,7 @@ namespace Portfolio.Shared.ViewModels
             Requirements = p.Requirements;
             Design = p.Design;
             CompletionDate = p.CompletionDate;
+            //TODO list of string
             Languages = new List<LanguageViewModel>(p.ProjectLanguages.Select(pl => new LanguageViewModel(pl.Language)));
         }
 
