@@ -1,0 +1,13 @@
+﻿@page "/languages/{LanguageId:int}"
+@inject Portfolio.Blazor.ProjectApiService ApiService
+@inject NavigationManager navManager
+@using Portfolio.Shared
+@using Portfolio.Shared.ViewModels
+
+<h3>@Name</h3>
+
+<label>Projects That use this language:</label>
+
+@code {
+    private string Name = " ";
+}
