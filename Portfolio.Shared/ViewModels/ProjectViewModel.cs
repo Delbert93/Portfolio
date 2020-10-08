@@ -9,7 +9,7 @@ namespace Portfolio.Shared.ViewModels
     {
         public ProjectViewModel()
         {
-            Languages = new List<LanguageViewModel>();
+            Languages = new List<string>();
         }
 
         public ProjectViewModel(Project p)
@@ -20,7 +20,7 @@ namespace Portfolio.Shared.ViewModels
             Design = p.Design;
             CompletionDate = p.CompletionDate;
             //TODO list of string
-            Languages = new List<LanguageViewModel>(p.ProjectLanguages.Select(pl => new LanguageViewModel(pl.Language)));
+            Languages = new List<string>(p.ProjectLanguages.Select(pl => pl.Language.Name));
         }
 
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace Portfolio.Shared.ViewModels
         public string Requirements { get; set; }
         public string Design { get; set; }
         public DateTime CompletionDate { get; set; }
-        public IList<LanguageViewModel> Languages { get; set; }
+        public IList<string> Languages { get; set; }
     }
 }

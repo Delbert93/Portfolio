@@ -24,6 +24,12 @@ namespace Portfolio.Blazor
             return await client.GetFromJsonAsync<IEnumerable<Project>>("/project/getprojects");
         }
 
+        public async Task<IEnumerable<Language>> GetLanguageAsync()
+        {
+            var language = await client.GetFromJsonAsync<IEnumerable<Language>>("/language");
+            return language;
+        }
+
         public async Task AddProjectAsync(Project project)
         {
             await client.PostAsJsonAsync("/project", project);

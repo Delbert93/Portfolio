@@ -1,7 +1,25 @@
 ﻿@page "/languages"
+@inject HttpClient http
+@inject ProjectApiService portfolioApi
+@inject NavigationManager navaManager
+@using Portfolio.Shared
+@using Portfolio.Shared.ViewModels 
 
 <h3>Languages</h3>
 
-@code {
+<div>
+    @foreach(var lan in languages)
+    {
+        <br />
+        <label><a class="text-primary">@lan.Name</a></label>
+    }
+</div>
 
+@code {
+    private IEnumerable<Language> languages = new List<Language>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        languages = await portfolioApi.GetLanguageAsync();
+    }
 }
