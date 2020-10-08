@@ -25,7 +25,7 @@
     @foreach (var st in projects ?? new Project[] { })
     {
         <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingalProjectPage(st.Id)">  @st.Title </a></label>
+        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(st.Id)">  @st.Title </a></label>
         <button><a class="text-primary" @onclick="() => NavigateToEditPage(st.Id)">Edit</a></button>
         <button @onclick="(() => deleteProjectFromDatabase(st))">Delete</button>
     }
@@ -63,7 +63,7 @@
         await RefreshProjectsAsync();
     }
 
-    public void NavigateToSingalProjectPage(int Id)
+    public void NavigateToSingleProjectPage(int Id)
     {
         navManager.NavigateTo("projectentry/" + Id);
     }

@@ -1,5 +1,5 @@
 ﻿@page "/languages/{LanguageId:int}"
-@inject Portfolio.Blazor.ProjectApiService ApiService
+@inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
 @using Portfolio.Shared.ViewModels
@@ -7,7 +7,29 @@
 <h3>@Name</h3>
 
 <label>Projects That use this language:</label>
+<br />
+<div>
+    @foreach (var proj in Projects ?? new string[] { })
+    {
+        <br />
+        <label><a class="text-primary">@proj</a></label>
+    }
+</div>
+<br />
 
 @code {
-    private string Name = " ";
+    [Parameter]
+    public int LanguageId { get; set; }
+
+    private LanguageViewModel CurrentLanguage { get; set; }
+    private string Name { get; set; }
+
+    private IEnumerable<string> Projects { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentLanguage = await portfoiliApi.GetLanguageByIdAsync(LanguageId);
+        Name = CurrentLanguage.Name;
+        Projects = CurrentLanguage.Projects;
+    }
 }

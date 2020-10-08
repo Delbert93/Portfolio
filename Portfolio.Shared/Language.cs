@@ -11,5 +11,6 @@ namespace Portfolio.Shared
         public int Id { get; set; }
         [JsonPropertyName("name")]
         public string Name { get; set; }
+        public List<ProjectLanguage> ProjectLanguages { get; set; }
     }
 }

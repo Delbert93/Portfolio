@@ -1,5 +1,5 @@
 ﻿@page "/projectentry/{ProjectId:int}"
-@inject Portfolio.Blazor.ProjectApiService ApiService
+@inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
 @using Portfolio.Shared.ViewModels
@@ -49,7 +49,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentProject = await ApiService.GetProjectById(ProjectId);
+        CurrentProject = await portfoiliApi.GetProjectByIdAsync(ProjectId);
 
         Title = CurrentProject.Title;
         Requirementes = CurrentProject.Requirements;

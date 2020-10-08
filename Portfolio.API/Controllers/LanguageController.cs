@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.API.Data;
 using Portfolio.Shared;
+using Portfolio.Shared.ViewModels;
 
 namespace Portfolio.API.Controllers
 {
@@ -22,10 +23,13 @@ namespace Portfolio.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IList<Language>> Get()
+        public async Task<List<LanguageViewModel>> Get()
         {
-            var languages = await repository.Languages.ToListAsync();
-            return languages;
+            return await repository.Languages
+                .Include(lan => lan.ProjectLanguages)
+                    .ThenInclude(proj => proj.Project)
+                .Select(lan => new LanguageViewModel(lan))
+                .ToListAsync();
         }
 
         [HttpPost("[action]")]

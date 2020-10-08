@@ -79,7 +79,7 @@
 
     private async Task RefreshProjectsAsync()
     {
-        CurrentProject = await portfolioApi.GetProjectById(ProjectId);
+        CurrentProject = await portfolioApi.GetProjectByIdAsync(ProjectId);
         Title = CurrentProject.Title;
         Requirementes = CurrentProject.Requirements;
         Desgin = CurrentProject.Design;

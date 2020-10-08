@@ -45,11 +45,18 @@ namespace Portfolio.Blazor
             await client.PostAsJsonAsync("/language/delete", language);
         }
 
-        public async Task<ProjectViewModel> GetProjectById(int Id)
+        public async Task<ProjectViewModel> GetProjectByIdAsync(int id)
         {
             var projects = await client.GetFromJsonAsync<IEnumerable<ProjectViewModel>>("/project");
-            var project = projects.Where(proj => proj.Id == Id).First();
+            var project = projects.Where(proj => proj.Id == id).First();
             return project;
+        }
+
+        public async Task<LanguageViewModel> GetLanguageByIdAsync(int id)
+        {
+            var langauges = await client.GetFromJsonAsync<IEnumerable<LanguageViewModel>>("/langauge");
+            var langauge = langauges.Where(lang => lang.Id == id).First();
+            return langauge;
         }
 
         public async Task AssignLanguage(int projectId, string language)
