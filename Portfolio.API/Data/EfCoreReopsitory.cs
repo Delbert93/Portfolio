@@ -17,7 +17,7 @@ namespace Portfolio.API.Data
         }
         public IQueryable<Project> Projects => context.Projects;
 
-        public IQueryable<Language> Languages => throw new NotImplementedException();
+        public IQueryable<Language> Languages => context.Languages;
 
         public IQueryable<ProjectLanguage> ProjectLanguages => throw new NotImplementedException();
 
