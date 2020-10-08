@@ -54,6 +54,14 @@ namespace Portfolio.API.Data
             await context.SaveChangesAsync();
         }
 
+        public async Task DeleteLanguageAsync(int id)
+        {
+            Language language = new Language();
+            language.Id = id;
+            context.Languages.Remove(language);
+            await context.SaveChangesAsync();
+        }
+
         public async Task EditProjectAsync(ProjectViewModel project)
         {
             //TODO assign correct information to project

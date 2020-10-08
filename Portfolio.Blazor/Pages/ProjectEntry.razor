@@ -75,7 +75,7 @@
 
     private async Task deleteProjectFromDatabase(Project project)
     {
-        await portfoiliApi.DeleteAsync(project);
+        await portfoiliApi.DeleteProjectAsync(project);
         await RefreshProjectsAsync();
     }
 

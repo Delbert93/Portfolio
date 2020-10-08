@@ -52,12 +52,6 @@ namespace Portfolio.API.Controllers
             });
         }
 
-        [HttpGet("[action]")]
-        public async Task Delete(int id)
-        {
-            await repository.DeleteProjectAsync(id);
-        }
-
         [HttpPost("[action]")]
         public async Task Delete(Project project)
         {

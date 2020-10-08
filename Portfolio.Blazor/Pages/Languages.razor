@@ -12,6 +12,7 @@
     {
         <br />
         <label><a class="text-primary">@lan.Name</a></label>
+        <button @onclick="() => deleteLanguageFromDatabase(lan)">Delete</button>
     }
 </div>
 
@@ -19,6 +20,17 @@
     private IEnumerable<Language> languages = new List<Language>();
 
     protected override async Task OnInitializedAsync()
+    {
+        languages = await portfolioApi.GetLanguageAsync();
+    }
+
+    private async Task deleteLanguageFromDatabase(Language language)
+    {
+        await portfolioApi.DeleteLanguageAsync(language);
+        await RefreshLanguageAsync();
+    }
+
+    private async Task RefreshLanguageAsync()
     {
         languages = await portfolioApi.GetLanguageAsync();
     }

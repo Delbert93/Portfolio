@@ -27,5 +27,11 @@ namespace Portfolio.API.Controllers
             var languages = await repository.Languages.ToListAsync();
             return languages;
         }
+
+        [HttpPost("[action]")]
+        public async Task Delete(Language language)
+        {
+            await repository.DeleteLanguageAsync(language.Id);
+        }
     }
 }

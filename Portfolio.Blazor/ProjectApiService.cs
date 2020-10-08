@@ -35,9 +35,14 @@ namespace Portfolio.Blazor
             await client.PostAsJsonAsync("/project", project);
         }
 
-        public async Task DeleteAsync(Project project)
+        public async Task DeleteProjectAsync(Project project)
         {
             await client.PostAsJsonAsync("/project/delete", project);
+        }
+
+        public async Task DeleteLanguageAsync(Language language)
+        {
+            await client.PostAsJsonAsync("/language/delete", language);
         }
 
         public async Task<ProjectViewModel> GetProjectById(int Id)

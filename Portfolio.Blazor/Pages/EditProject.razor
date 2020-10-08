@@ -1,5 +1,5 @@
 ﻿@page "/projectentry/edit/{ProjectId:int}"
-@inject Portfolio.Blazor.ProjectApiService ApiService
+@inject Portfolio.Blazor.ProjectApiService portfolioApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
 @using Portfolio.Shared.ViewModels
@@ -62,7 +62,7 @@
 
     private async Task AddLanguage()
     {
-        await ApiService.AssignLanguage(ProjectId, languageName);
+        await portfolioApi.AssignLanguage(ProjectId, languageName);
         await RefreshProjectsAsync();
     }
 
@@ -73,13 +73,13 @@
         CurrentProject.Design = Desgin;
         CurrentProject.CompletionDate = CompletionDate;
 
-        await ApiService.Edit(CurrentProject);
+        await portfolioApi.Edit(CurrentProject);
         navManager.NavigateTo("https://delbert93.github.io/Portfolio/projectentry");
     }
 
     private async Task RefreshProjectsAsync()
     {
-        CurrentProject = await ApiService.GetProjectById(ProjectId);
+        CurrentProject = await portfolioApi.GetProjectById(ProjectId);
         Title = CurrentProject.Title;
         Requirementes = CurrentProject.Requirements;
         Desgin = CurrentProject.Design;
