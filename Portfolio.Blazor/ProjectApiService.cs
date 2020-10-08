@@ -54,7 +54,7 @@ namespace Portfolio.Blazor
 
         public async Task<LanguageViewModel> GetLanguageByIdAsync(int id)
         {
-            var langauges = await client.GetFromJsonAsync<IEnumerable<LanguageViewModel>>("/langauge");
+            var langauges = await client.GetFromJsonAsync<IEnumerable<LanguageViewModel>>("/language");
             var langauge = langauges.Where(lang => lang.Id == id).First();
             return langauge;
         }

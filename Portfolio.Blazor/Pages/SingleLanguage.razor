@@ -29,6 +29,7 @@
     protected override async Task OnInitializedAsync()
     {
         CurrentLanguage = await portfoiliApi.GetLanguageByIdAsync(LanguageId);
+
         Name = CurrentLanguage.Name;
         Projects = CurrentLanguage.Projects;
     }
