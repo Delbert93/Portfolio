@@ -35,6 +35,27 @@ namespace Portfolio.API.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("{slug}")]
+        public async Task<ProjectViewModel> GetProject(string slug)
+        {
+            try
+            {
+                var project = await repository.Projects
+                    .Include(p => p.ProjectLanguages)
+                        .ThenInclude(lan => lan.Language)
+                    .Include(p => p.ProjectPlatforms)
+                        .ThenInclude(plat => plat.Platform)
+                    .Include(p => p.ProjectTechnologies)
+                        .ThenInclude(tech => tech.Technology)
+                    .FirstOrDefaultAsync(p => p.Slug == slug);
+                return new ProjectViewModel(project);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("[action]")]
         public async Task AssginCategory(AssignRequest assignRequest)
         {

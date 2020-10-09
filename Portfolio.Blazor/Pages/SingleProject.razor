@@ -1,4 +1,4 @@
-﻿@page "/projectentry/{ProjectId:int}"
+﻿@page "/projectentry/{slug}"
 @inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
@@ -8,7 +8,7 @@
 <label>Project Title:</label>
 <label>@Title</label>
 <br />
-<br />
+<br /> 
 
 <label>Project Requirementes:</label>
 <br />

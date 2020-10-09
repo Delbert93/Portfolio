@@ -123,7 +123,15 @@ namespace Portfolio.API.Data
 
         public async Task SaveProjectAsync(Project project)
         {
-            context.Projects.Add(project);
+            if(project.Id == 0)
+            {
+                project.Slug = project.Title.ToSlug();
+                context.Projects.Add(project);
+            }
+            {
+                project.Slug = project.Title.ToSlug();
+                context.Projects.Update(project);
+            }
             await context.SaveChangesAsync();
         }
     }

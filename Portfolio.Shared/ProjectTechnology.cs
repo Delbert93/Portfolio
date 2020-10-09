@@ -11,5 +11,6 @@ namespace Portfolio.Shared
         public Project Project { get; set; }
         public int TechnologyId { get; set; }
         public Technology Technology { get; set; }
+
     }
 }
