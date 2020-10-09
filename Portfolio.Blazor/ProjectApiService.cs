@@ -156,6 +156,11 @@ namespace Portfolio.Blazor
             await client.PostAsJsonAsync("/project/AssginCategory", request);
         }
 
+        public async Task<ProjectViewModel> GetProjectBySlugAsync(string slug)
+        {
+            return await client.GetFromJsonAsync<ProjectViewModel>($"/project/{slug}");
+        }
+
         public async Task Edit(ProjectViewModel project)
         {
             await client.PostAsJsonAsync("/project/edit", project);
