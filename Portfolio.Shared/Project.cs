@@ -27,5 +27,6 @@ namespace Portfolio.Shared
 
         public List<ProjectLanguage> ProjectLanguages { get; set; }
         public List<ProjectPlatform> ProjectPlatforms { get; set; }
+        public List<ProjectTechnology> ProjectTechnologies { get; set; }
     }
 }

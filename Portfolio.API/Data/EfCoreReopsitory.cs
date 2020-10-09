@@ -19,9 +19,11 @@ namespace Portfolio.API.Data
         public IQueryable<Project> Projects => context.Projects;
         public IQueryable<Language> Languages => context.Languages;
         public IQueryable<Platform> Platforms => context.Platforms;
+        public IQueryable<Technology> Technologies => context.Technologies;
 
         public IQueryable<ProjectLanguage> ProjectLanguages => throw new NotImplementedException();
         public IQueryable<ProjectPlatform> ProjectPlatforms => throw new NotImplementedException();
+        public IQueryable<ProjectTechnology> ProjectTechnologies => throw new NotImplementedException();
 
         public async Task AssignCategoryAsync(AssignRequest assignRequest)
         {
@@ -59,6 +61,22 @@ namespace Portfolio.API.Data
                     context.ProjectPlatforms.Add(pl);
                     await context.SaveChangesAsync();
                     break;
+                case Project.TechnologyCategory:
+                    var technology = await context.Technologies.FirstOrDefaultAsync(tech => tech.Name == assignRequest.Name);
+                    if (technology == null)
+                    {
+                        technology = new Technology { Name = assignRequest.Name };
+                        context.Technologies.Add(technology);
+                        await context.SaveChangesAsync();
+                    }
+                    var te = new ProjectPlatform
+                    {
+                        ProjectId = assignRequest.ProjectId,
+                        PlatformId = technology.Id
+                    };
+                    context.ProjectPlatforms.Add(te);
+                    await context.SaveChangesAsync();
+                    break;
                 default:
                     break;
             }
@@ -85,6 +103,14 @@ namespace Portfolio.API.Data
             Platform platform = new Platform();
             platform.Id = id;
             context.Platforms.Remove(platform);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteTechnologyAsync(int id)
+        {
+            Technology technology = new Technology();
+            technology.Id = id;
+            context.Technologies.Remove(technology);
             await context.SaveChangesAsync();
         }
 
