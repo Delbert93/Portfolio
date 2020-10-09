@@ -1,10 +1,10 @@
-﻿@page "/platforms/{PlatformId:int}"
+﻿@page "/technologies/{TechnologyId:int}"
 @inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
 @using Portfolio.Shared.ViewModels
 
-<label>Projects That use this platform:</label>
+<label>Projects That use this technology:</label>
 <br />
 <div>
     @foreach (var proj in Projects ?? new string[] { })
@@ -17,19 +17,19 @@
 
 @code {
     [Parameter]
-    public int PlatformId { get; set; }
+    public int TechnologyId { get; set; }
 
-    private PlatformViewModel CurrentPlatform { get; set; }
+    private TechnologyViewModel CurrentTechnology { get; set; }
     private string Name { get; set; }
 
     private IEnumerable<string> Projects { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentPlatform = await portfoiliApi.GetPlatformByIdAsync(PlatformId);
+        CurrentTechnology = await portfoiliApi.GetTechnologyByIdAsync(TechnologyId);
 
-        Name = CurrentPlatform.Name;
-        Projects = CurrentPlatform.Projects;
+        Name = CurrentTechnology.Name;
+        Projects = CurrentTechnology.Projects;
         Projects.Distinct();
     }
 

@@ -22,6 +22,7 @@
     protected override async Task OnInitializedAsync()
     {
         platforms = await portfolioApi.GetPlatformAsync();
+        platforms.Distinct();
     }
 
     private async Task deletePlatformFromDatabase(Platform platform)
@@ -38,6 +39,7 @@
     private async Task RefreshPlatformAsync()
     {
         platforms = await portfolioApi.GetPlatformAsync();
+        platforms.Distinct();
     }
 }
 

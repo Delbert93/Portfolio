@@ -32,6 +32,7 @@
 
         Name = CurrentLanguage.Name;
         Projects = CurrentLanguage.Projects;
+        Projects.Distinct();
     }
 
     protected async Task NavigateToSingleProjectPage(string projectName)

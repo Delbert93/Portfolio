@@ -52,6 +52,19 @@
     }
 </div>
 
+<label>Technology:</label>
+<input type="text" @bind="technologyName">
+<button @onclick="AddTechnology">Add Technology</button>
+
+
+<div>
+    @foreach (var tech in Technologies ?? new string[] { })
+    {
+        <br />
+        <label>@tech</label>
+    }
+</div>
+
 <button @onclick="SaveChanges">Update</button>
 
 @code {
@@ -65,9 +78,11 @@
     public DateTime CompletionDate { get; set; }
     private IEnumerable<string> Languages { get; set; }
     private IEnumerable<string> Platforms { get; set; }
+    private IEnumerable<string> Technologies { get; set; }
 
     private string languageName = " ";
     private string platformName = " ";
+    private string technologyName = " ";
 
     protected override async Task OnInitializedAsync()
     {
@@ -83,6 +98,12 @@
     private async Task AddPlatform()
     {
         await portfolioApi.AssignPlatform(ProjectId, platformName);
+        await RefreshProjectsAsync();
+    }
+
+    private async Task AddTechnology()
+    {
+        await portfolioApi.AssignTechnology(ProjectId, technologyName);
         await RefreshProjectsAsync();
     }
 
@@ -106,6 +127,10 @@
         CompletionDate = CurrentProject.CompletionDate;
         Languages = CurrentProject.Languages;
         Platforms = CurrentProject.Platforms;
+        Technologies = CurrentProject.Technologies;
+        Languages.Distinct();
+        Platforms.Distinct();
+        Technologies.Distinct();
     }
 
 }

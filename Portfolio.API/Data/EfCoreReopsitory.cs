@@ -69,12 +69,12 @@ namespace Portfolio.API.Data
                         context.Technologies.Add(technology);
                         await context.SaveChangesAsync();
                     }
-                    var te = new ProjectPlatform
+                    var te = new ProjectTechnology
                     {
                         ProjectId = assignRequest.ProjectId,
-                        PlatformId = technology.Id
+                        TechnologyId = technology.Id
                     };
-                    context.ProjectPlatforms.Add(te);
+                    context.ProjectTechnologies.Add(te);
                     await context.SaveChangesAsync();
                     break;
                 default:

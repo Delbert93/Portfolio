@@ -42,6 +42,17 @@
 </div>
 <br />
 
+<label>Technology:</label>
+<br />
+<div>
+    @foreach (var tech in Technologies ?? new string[] { })
+    {
+        <br />
+        <label><a class="text-primary" @onclick="() => NavigateToSingleTechnologyPage(tech)">@tech</a></label>
+    }
+</div>
+<br />
+
 <label>Project CompletionDate: </label>
 <label>@CompletionDate</label>
 <br />
@@ -49,8 +60,6 @@
 @code {
     [Parameter]
     public int ProjectId { get; set; }
-
-    public ProjectLanguage projectLanguage { get; set; }
 
     public ProjectViewModel CurrentProject { get; set; }
     public string Title { get; set; }
@@ -60,6 +69,7 @@
 
     private IEnumerable<string> Languages { get; set; }
     private IEnumerable<string> Platforms { get; set; }
+    private IEnumerable<string> Technologies { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -71,6 +81,10 @@
         CompletionDate = CurrentProject.CompletionDate;
         Languages = CurrentProject.Languages;
         Platforms = CurrentProject.Platforms;
+        Technologies = CurrentProject.Technologies;
+        Languages.Distinct();
+        Platforms.Distinct();
+        Technologies.Distinct();
     }
 
     protected async Task NavigateToSingleLanguagePage(string languageName)
@@ -83,5 +97,11 @@
     {
         var platform = await portfoiliApi.GetPlatformByNameAsync(platformName);
         navManager.NavigateTo("platforms/" + platform.Id);
+    }
+
+    protected async Task NavigateToSingleTechnologyPage(string technologyName)
+    {
+        var technology = await portfoiliApi.GetTechnologyByNameAsync(technologyName);
+        navManager.NavigateTo("technologies/" + technology.Id);
     }
 }

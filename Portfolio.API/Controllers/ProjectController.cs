@@ -29,6 +29,8 @@ namespace Portfolio.API.Controllers
                     .ThenInclude(lan => lan.Language)
                 .Include(p => p.ProjectPlatforms)
                     .ThenInclude(plat => plat.Platform)
+                .Include(p => p.ProjectTechnologies)
+                    .ThenInclude(tech => tech.Technology)
                 .Select(p => new ProjectViewModel(p))
                 .ToListAsync();
         }

@@ -22,6 +22,7 @@
     protected override async Task OnInitializedAsync()
     {
         languages = await portfolioApi.GetLanguageAsync();
+        languages.Distinct();
     }
 
     private async Task deleteLanguageFromDatabase(Language language)
@@ -38,5 +39,6 @@
     private async Task RefreshLanguageAsync()
     {
         languages = await portfolioApi.GetLanguageAsync();
+        languages.Distinct();
     }
 }

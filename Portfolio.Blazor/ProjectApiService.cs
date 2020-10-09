@@ -36,6 +36,12 @@ namespace Portfolio.Blazor
             return platform;
         }
 
+        public async Task<IEnumerable<Technology>> GetTechnologyAsync()
+        {
+            var technology = await client.GetFromJsonAsync<IEnumerable<Technology>>("/technology");
+            return technology;
+        }
+
         public async Task AddProjectAsync(Project project)
         {
             await client.PostAsJsonAsync("/project", project);
@@ -54,6 +60,11 @@ namespace Portfolio.Blazor
         public async Task DeletePlatformAsync(Platform platform)
         {
             await client.PostAsJsonAsync("/platform/delete", platform);
+        }
+
+        public async Task DeleteTechnologyAsync(Technology technology)
+        {
+            await client.PostAsJsonAsync("/technology/delete", technology);
         }
 
         public async Task<ProjectViewModel> GetProjectByIdAsync(int id)
@@ -98,6 +109,20 @@ namespace Portfolio.Blazor
             return platform;
         }
 
+        public async Task<TechnologyViewModel> GetTechnologyByIdAsync(int id)
+        {
+            var technologies = await client.GetFromJsonAsync<IEnumerable<TechnologyViewModel>>("/technology");
+            var technology = technologies.Where(tech => tech.Id == id).First();
+            return technology;
+        }
+
+        public async Task<Technology> GetTechnologyByNameAsync(string technologyName)
+        {
+            var technologies = await client.GetFromJsonAsync<IEnumerable<Technology>>("/technology");
+            var technology = technologies.Where(tech => tech.Name == technologyName).First();
+            return technology;
+        }
+
         public async Task AssignLanguage(int projectId, string language)
         {
             var request = new AssignRequest
@@ -115,6 +140,17 @@ namespace Portfolio.Blazor
             {
                 CategoryType = Project.PlatformCategory,
                 Name = platform,
+                ProjectId = projectId
+            };
+            await client.PostAsJsonAsync("/project/AssginCategory", request);
+        }
+
+        public async Task AssignTechnology(int projectId, string technology)
+        {
+            var request = new AssignRequest
+            {
+                CategoryType = Project.TechnologyCategory,
+                Name = technology,
                 ProjectId = projectId
             };
             await client.PostAsJsonAsync("/project/AssginCategory", request);
