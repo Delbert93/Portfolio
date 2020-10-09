@@ -18,7 +18,7 @@ namespace Portfolio.Blazor
             builder.RootComponents.Add<App>("app");
 
             //TODO get this to work with base
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5005") });
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://lloyd-portfoli.herokuapp.com/") });
             builder.Services.AddScoped<ProjectApiService>();
 
             await builder.Build().RunAsync();
