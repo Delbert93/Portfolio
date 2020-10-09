@@ -66,6 +66,13 @@ namespace Portfolio.Blazor
             return language;
         }
 
+        public async Task<Project> GetProjectByNameAsync(string projectName)
+        {
+            var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("/project");
+            var project = projects.Where(proj => proj.Title == projectName).First();
+            return project;
+        }
+
         public async Task AssignLanguage(int projectId, string language)
         {
             var request = new AssignRequest
