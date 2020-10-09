@@ -25,8 +25,9 @@
     @foreach (var st in projects ?? new Project[] { })
     {
         <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(st.Id)">  @st.Title </a></label>
-        <button><a class="text-primary" @onclick="() => NavigateToEditPage(st.Id)">Edit</a></button>
+        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(st.Slug)">  @st.Title </a></label>
+        <label>@st.Id</label>
+        <button><a class="text-primary" @onclick="() => NavigateToEditPage(st.Slug)">Edit</a></button>
         <button @onclick="(() => deleteProjectFromDatabase(st))">Delete</button>
     }
 </div>
@@ -63,14 +64,14 @@
         await RefreshProjectsAsync();
     }
 
-    public void NavigateToSingleProjectPage(int Id)
+    public void NavigateToSingleProjectPage(string slug)
     {
-        navManager.NavigateTo("projectentry/" + Id);
+        navManager.NavigateTo("projectentry/" + slug);
     }
 
-    public void NavigateToEditPage(int Id)
+    public void NavigateToEditPage(string slug)
     {
-        navManager.NavigateTo("projectentry/edit/" + Id);
+        navManager.NavigateTo("projectentry/edit/" + slug);
     }
 
     private async Task deleteProjectFromDatabase(Project project)
