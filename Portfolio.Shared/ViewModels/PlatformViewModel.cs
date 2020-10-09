@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Portfolio.Shared.ViewModels
 {
-    public class LanguageViewModel
+    public class PlatformViewModel
     {
-        public LanguageViewModel() { }
-        public LanguageViewModel(Language language)
+        public PlatformViewModel() { }
+        public PlatformViewModel(Platform platform)
         {
-            Id = language.Id;
-            Name = language.Name;
-            Projects = new List<string>(language.ProjectLanguages.Select(proj => proj.Project.Title));
+            Id = platform.Id;
+            Name = platform.Name;
+            Projects = new List<string>(platform.ProjectPlatforms.Select(proj => proj.Project.Title));
         }
 
         public int Id { get; set; }

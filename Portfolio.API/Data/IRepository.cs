@@ -11,8 +11,10 @@ namespace Portfolio.API.Data
     {
         IQueryable<Project> Projects { get; }
         IQueryable<Language> Languages { get; }
+        IQueryable<Platform> Platforms { get; }
 
         IQueryable<ProjectLanguage> ProjectLanguages { get; }
+        IQueryable<ProjectPlatform> ProjectPlatforms { get; }
 
         Task SaveProjectAsync(Project project);
         Task DeleteProjectAsync(int id);

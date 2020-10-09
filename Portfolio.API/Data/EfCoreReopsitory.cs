@@ -15,11 +15,13 @@ namespace Portfolio.API.Data
         {
             this.context = context ?? throw new ArgumentException(nameof(context));
         }
-        public IQueryable<Project> Projects => context.Projects;
 
+        public IQueryable<Project> Projects => context.Projects;
         public IQueryable<Language> Languages => context.Languages;
+        public IQueryable<Platform> Platforms => throw new NotImplementedException();
 
         public IQueryable<ProjectLanguage> ProjectLanguages => throw new NotImplementedException();
+        public IQueryable<ProjectPlatform> ProjectPlatforms => throw new NotImplementedException();
 
         public async Task AssignCategoryAsync(AssignRequest assignRequest)
         {
@@ -39,6 +41,22 @@ namespace Portfolio.API.Data
                         LanguageId = language.Id
                     };
                     context.ProjectLanguages.Add(lc);
+                    await context.SaveChangesAsync();
+                    break;
+                case Project.PlatformCategory:
+                    var platform = await context.Platforms.FirstOrDefaultAsync(plat => plat.Name == assignRequest.Name);
+                    if (platform == null)
+                    {
+                        platform = new Platform { Name = assignRequest.Name };
+                        context.Platforms.Add(platform);
+                        await context.SaveChangesAsync();
+                    }
+                    var pl = new ProjectPlatform
+                    {
+                        ProjectId = assignRequest.ProjectId,
+                        PlatformId = platform.Id
+                    };
+                    context.ProjectPlatforms.Add(pl);
                     await context.SaveChangesAsync();
                     break;
                 default:
