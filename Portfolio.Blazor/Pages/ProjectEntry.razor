@@ -26,7 +26,6 @@
     {
         <br />
         <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(st.Slug)">  @st.Title </a></label>
-        <label>@st.Id</label>
         <button><a class="text-primary" @onclick="() => NavigateToEditPage(st.Slug)">Edit</a></button>
         <button @onclick="(() => deleteProjectFromDatabase(st))">Delete</button>
     }

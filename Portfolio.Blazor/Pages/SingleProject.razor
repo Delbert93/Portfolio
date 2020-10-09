@@ -80,7 +80,7 @@
         {
             return;
         }
-        CurrentProject = await portfoiliApi.GetProjectByIdAsync(ProjectId);
+        CurrentProject = await portfoiliApi.GetProjectBySlugAsync(Slug);
 
         Title = CurrentProject.Title;
         Requirementes = CurrentProject.Requirements;
