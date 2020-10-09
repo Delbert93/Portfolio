@@ -18,7 +18,7 @@ namespace Portfolio.API.Data
 
         public IQueryable<Project> Projects => context.Projects;
         public IQueryable<Language> Languages => context.Languages;
-        public IQueryable<Platform> Platforms => throw new NotImplementedException();
+        public IQueryable<Platform> Platforms => context.Platforms;
 
         public IQueryable<ProjectLanguage> ProjectLanguages => throw new NotImplementedException();
         public IQueryable<ProjectPlatform> ProjectPlatforms => throw new NotImplementedException();
@@ -77,6 +77,14 @@ namespace Portfolio.API.Data
             Language language = new Language();
             language.Id = id;
             context.Languages.Remove(language);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeletePlatformAsync(int id)
+        {
+            Platform platform = new Platform();
+            platform.Id = id;
+            context.Platforms.Remove(platform);
             await context.SaveChangesAsync();
         }
 

@@ -31,6 +31,17 @@
 </div>
 <br />
 
+<label>Platforms:</label>
+<br />
+<div>
+    @foreach (var plat in Platforms ?? new string[] { })
+    {
+        <br />
+        <label><a class="text-primary" @onclick="() => NavigateToSinglePlatformPage(plat)">@plat</a></label>
+    }
+</div>
+<br />
+
 <label>Project CompletionDate: </label>
 <label>@CompletionDate</label>
 <br />
@@ -48,6 +59,7 @@
     public DateTime CompletionDate { get; set; }
 
     private IEnumerable<string> Languages { get; set; }
+    private IEnumerable<string> Platforms { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -58,11 +70,18 @@
         Desgin = CurrentProject.Design;
         CompletionDate = CurrentProject.CompletionDate;
         Languages = CurrentProject.Languages;
+        Platforms = CurrentProject.Platforms;
     }
 
     protected async Task NavigateToSingleLanguagePage(string languageName)
     {
         var language = await portfoiliApi.GetLanguageByNameAsync(languageName);
         navManager.NavigateTo("languages/" + language.Id);
+    }
+
+    protected async Task NavigateToSinglePlatformPage(string platformName)
+    {
+        var platform = await portfoiliApi.GetPlatformByNameAsync(platformName);
+        navManager.NavigateTo("platforms/" + platform.Id);
     }
 }

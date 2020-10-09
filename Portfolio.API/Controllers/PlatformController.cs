@@ -34,7 +34,7 @@ namespace Portfolio.API.Controllers
         [HttpPost("[action]")]
         public async Task Delete(Platform platform)
         {
-            await repository.DeleteLanguageAsync(platform.Id);
+            await repository.DeletePlatformAsync(platform.Id);
         }
     }
 }

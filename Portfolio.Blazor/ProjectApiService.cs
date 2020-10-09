@@ -30,6 +30,12 @@ namespace Portfolio.Blazor
             return language;
         }
 
+        public async Task<IEnumerable<Platform>> GetPlatformAsync()
+        {
+            var platform = await client.GetFromJsonAsync<IEnumerable<Platform>>("/platform");
+            return platform;
+        }
+
         public async Task AddProjectAsync(Project project)
         {
             await client.PostAsJsonAsync("/project", project);
@@ -45,10 +51,22 @@ namespace Portfolio.Blazor
             await client.PostAsJsonAsync("/language/delete", language);
         }
 
+        public async Task DeletePlatformAsync(Platform platform)
+        {
+            await client.PostAsJsonAsync("/platform/delete", platform);
+        }
+
         public async Task<ProjectViewModel> GetProjectByIdAsync(int id)
         {
             var projects = await client.GetFromJsonAsync<IEnumerable<ProjectViewModel>>("/project");
             var project = projects.Where(proj => proj.Id == id).First();
+            return project;
+        }
+
+        public async Task<Project> GetProjectByNameAsync(string projectName)
+        {
+            var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("/project");
+            var project = projects.Where(proj => proj.Title == projectName).First();
             return project;
         }
 
@@ -66,11 +84,18 @@ namespace Portfolio.Blazor
             return language;
         }
 
-        public async Task<Project> GetProjectByNameAsync(string projectName)
+        public async Task<PlatformViewModel> GetPlatformByIdAsync(int id)
         {
-            var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("/project");
-            var project = projects.Where(proj => proj.Title == projectName).First();
-            return project;
+            var platforms = await client.GetFromJsonAsync<IEnumerable<PlatformViewModel>>("/platform");
+            var platform = platforms.Where(plat => plat.Id == id).First();
+            return platform;
+        }
+
+        public async Task<Platform> GetPlatformByNameAsync(string platformName)
+        {
+            var platforms = await client.GetFromJsonAsync<IEnumerable<Platform>>("/platform");
+            var platform = platforms.Where(plat => plat.Name == platformName).First();
+            return platform;
         }
 
         public async Task AssignLanguage(int projectId, string language)
@@ -81,7 +106,18 @@ namespace Portfolio.Blazor
                 Name = language,
                 ProjectId = projectId
             };
-            await client.PostAsJsonAsync("/project/AssginLangauge", request);
+            await client.PostAsJsonAsync("/project/AssginCategory", request);
+        }
+
+        public async Task AssignPlatform(int projectId, string platform)
+        {
+            var request = new AssignRequest
+            {
+                CategoryType = Project.PlatformCategory,
+                Name = platform,
+                ProjectId = projectId
+            };
+            await client.PostAsJsonAsync("/project/AssginCategory", request);
         }
 
         public async Task Edit(ProjectViewModel project)

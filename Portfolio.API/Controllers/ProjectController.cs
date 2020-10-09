@@ -27,12 +27,14 @@ namespace Portfolio.API.Controllers
             return await repository.Projects
                 .Include(p => p.ProjectLanguages)
                     .ThenInclude(lan => lan.Language)
+                .Include(p => p.ProjectPlatforms)
+                    .ThenInclude(plat => plat.Platform)
                 .Select(p => new ProjectViewModel(p))
                 .ToListAsync();
         }
 
         [HttpPost("[action]")]
-        public async Task AssginLangauge(AssignRequest assignRequest)
+        public async Task AssginCategory(AssignRequest assignRequest)
         {
             await repository.AssignCategoryAsync(assignRequest);
         }

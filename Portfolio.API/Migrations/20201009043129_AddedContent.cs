@@ -2,7 +2,7 @@
 
 namespace Portfolio.API.Migrations
 {
-    public partial class UpdateContentInLanguage : Migration
+    public partial class AddedContent : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

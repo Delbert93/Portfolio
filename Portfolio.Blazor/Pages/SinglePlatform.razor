@@ -1,0 +1,40 @@
+﻿@page "/platforms/{PlatformId:int}"
+@inject Portfolio.Blazor.ProjectApiService portfoiliApi
+@inject NavigationManager navManager
+@using Portfolio.Shared
+@using Portfolio.Shared.ViewModels
+
+<label>Projects That use this platform:</label>
+<br />
+<div>
+    @foreach (var proj in Projects ?? new string[] { })
+    {
+        <br />
+        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(proj)">@proj</a></label>
+    }
+</div>
+<br />
+
+@code {
+    [Parameter]
+    public int PlatformId { get; set; }
+
+    private PlatformViewModel CurrentPlatform { get; set; }
+    private string Name { get; set; }
+
+    private IEnumerable<string> Projects { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentPlatform = await portfoiliApi.GetPlatformByIdAsync(PlatformId);
+
+        Name = CurrentPlatform.Name;
+        Projects = CurrentPlatform.Projects;
+    }
+
+    protected async Task NavigateToSingleProjectPage(string projectName)
+    {
+        var project = await portfoiliApi.GetProjectByNameAsync(projectName);
+        navManager.NavigateTo("projectentry/" + project.Id);
+    }
+}

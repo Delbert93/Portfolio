@@ -1,7 +1,43 @@
 ﻿@page "/platforms"
+@inject HttpClient http
+@inject ProjectApiService portfolioApi
+@inject NavigationManager navManager
+@using Portfolio.Shared
+@using Portfolio.Shared.ViewModels
 
 <h3>Platforms</h3>
 
-@code {
+<div>
+    @foreach (var plat in platforms)
+    {
+        <br />
+        <label><a class="text-primary" @onclick="() => NavigateToSinglePlatformPage(plat.Id)">@plat.Name</a></label>
+        <button @onclick="() => deletePlatformFromDatabase(plat)">Delete</button>
+    }
+</div>
 
+@code {
+    private IEnumerable<Platform> platforms = new List<Platform>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        platforms = await portfolioApi.GetPlatformAsync();
+    }
+
+    private async Task deletePlatformFromDatabase(Platform platform)
+    {
+        await portfolioApi.DeletePlatformAsync(platform);
+        await RefreshPlatformAsync();
+    }
+
+    public void NavigateToSinglePlatformPage(int Id)
+    {
+        navManager.NavigateTo("platforms/" + Id);
+    }
+
+    private async Task RefreshPlatformAsync()
+    {
+        platforms = await portfolioApi.GetPlatformAsync();
+    }
 }
+

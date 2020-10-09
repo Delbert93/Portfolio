@@ -19,6 +19,7 @@ namespace Portfolio.API.Data
         Task SaveProjectAsync(Project project);
         Task DeleteProjectAsync(int id);
         Task DeleteLanguageAsync(int id);
+        Task DeletePlatformAsync(int id);
         Task EditProjectAsync(ProjectViewModel project);
         Task AssignCategoryAsync(AssignRequest assignRequest);
     }
