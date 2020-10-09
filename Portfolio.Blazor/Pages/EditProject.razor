@@ -1,4 +1,4 @@
-﻿@page "/projectentry/edit/{ProjectId:int}"
+﻿@page "/projectentry/edit/{slug}"
 @inject Portfolio.Blazor.ProjectApiService portfolioApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
@@ -71,6 +71,9 @@
     [Parameter]
     public int ProjectId { get; set; }
 
+    [Parameter]
+    public string Slug { get; set; }
+
     public ProjectViewModel CurrentProject { get; set; }
     public string Title { get; set; }
     public string Requirementes { get; set; }
@@ -89,18 +92,21 @@
         await RefreshProjectsAsync();
     }
 
+    //TODO use the slug
     private async Task AddLanguage()
     {
         await portfolioApi.AssignLanguage(ProjectId, languageName);
         await RefreshProjectsAsync();
     }
 
+    //TODO use the slug
     private async Task AddPlatform()
     {
         await portfolioApi.AssignPlatform(ProjectId, platformName);
         await RefreshProjectsAsync();
     }
 
+    //TODO use the slug
     private async Task AddTechnology()
     {
         await portfolioApi.AssignTechnology(ProjectId, technologyName);
@@ -120,7 +126,7 @@
 
     private async Task RefreshProjectsAsync()
     {
-        CurrentProject = await portfolioApi.GetProjectByIdAsync(ProjectId);
+        CurrentProject = await portfolioApi.GetProjectBySlugAsync(Slug);
         Title = CurrentProject.Title;
         Requirementes = CurrentProject.Requirements;
         Desgin = CurrentProject.Design;

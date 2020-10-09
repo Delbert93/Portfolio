@@ -31,6 +31,23 @@ namespace Portfolio.API.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("{slug}")]
+        public async Task<PlatformViewModel> GetPlatform(string slug)
+        {
+            try
+            {
+                var platform = await repository.Platforms
+                    .Include(p => p.ProjectPlatforms)
+                        .ThenInclude(lan => lan.Project)
+                    .FirstOrDefaultAsync(p => p.Slug == slug);
+                return new PlatformViewModel(platform);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("[action]")]
         public async Task Delete(Platform platform)
         {

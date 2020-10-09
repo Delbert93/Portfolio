@@ -32,6 +32,23 @@ namespace Portfolio.API.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("{slug}")]
+        public async Task<TechnologyViewModel> GetTechnology(string slug)
+        {
+            try
+            {
+                var technology = await repository.Technologies
+                    .Include(p => p.ProjectTechnologies)
+                        .ThenInclude(lan => lan.Project)
+                    .FirstOrDefaultAsync(p => p.Slug == slug);
+                return new TechnologyViewModel(technology);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("[action]")]
         public async Task Delete(Technology technology)
         {

@@ -161,6 +161,21 @@ namespace Portfolio.Blazor
             return await client.GetFromJsonAsync<ProjectViewModel>($"/project/{slug}");
         }
 
+        public async Task<LanguageViewModel> GetLanguageBySlugAsync(string slug)
+        {
+            return await client.GetFromJsonAsync<LanguageViewModel>($"/language/{slug}");
+        }
+
+        public async Task<PlatformViewModel> GetPlatformBySlugAsync(string slug)
+        {
+            return await client.GetFromJsonAsync<PlatformViewModel>($"/platform/{slug}");
+        }
+
+        public async Task<TechnologyViewModel> GetTechnologyBySlugAsync(string slug)
+        {
+            return await client.GetFromJsonAsync<TechnologyViewModel>($"/technology/{slug}");
+        }
+
         public async Task Edit(ProjectViewModel project)
         {
             await client.PostAsJsonAsync("/project/edit", project);

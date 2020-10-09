@@ -31,6 +31,23 @@ namespace Portfolio.API.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("{slug}")]
+        public async Task<LanguageViewModel> GetLanguage(string slug)
+        {
+            try
+            {
+                var language = await repository.Languages
+                    .Include(p => p.ProjectLanguages)
+                        .ThenInclude(lan => lan.Project)
+                    .FirstOrDefaultAsync(p => p.Slug == slug);
+                return new LanguageViewModel(language);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("[action]")]
         public async Task Delete(Language language)
         {

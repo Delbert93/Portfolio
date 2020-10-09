@@ -1,4 +1,4 @@
-﻿@page "/technologies/{TechnologyId:int}"
+﻿@page "/technologies/{slug}"
 @inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
@@ -19,6 +19,9 @@
     [Parameter]
     public int TechnologyId { get; set; }
 
+    [Parameter]
+    public string Slug { get; set; }
+
     private TechnologyViewModel CurrentTechnology { get; set; }
     private string Name { get; set; }
 
@@ -26,13 +29,20 @@
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentTechnology = await portfoiliApi.GetTechnologyByIdAsync(TechnologyId);
+        if(Slug == null)
+        {
+            return;
+        }
+        CurrentTechnology = await portfoiliApi.GetTechnologyBySlugAsync(Slug);
 
         Name = CurrentTechnology.Name;
         Projects = CurrentTechnology.Projects;
         Projects.Distinct();
     }
 
+    async Task refreshAsync() => CurrentTechnology = await portfoiliApi.GetTechnologyBySlugAsync(Slug);
+
+    //TODO navigate by slug
     protected async Task NavigateToSingleProjectPage(string projectName)
     {
         var project = await portfoiliApi.GetProjectByNameAsync(projectName);
