@@ -19,6 +19,9 @@ namespace Portfolio.API.Data
         IQueryable<ProjectTechnology> ProjectTechnologies { get; }
 
         Task SaveProjectAsync(Project project);
+        Task SaveLanuguageAsync(Language language);
+        Task SavePlatformAsync(Platform platform);
+        Task SaveTechnologyAsync(Technology technology);
         Task DeleteProjectAsync(int id);
         Task DeleteLanguageAsync(int id);
         Task DeletePlatformAsync(int id);
