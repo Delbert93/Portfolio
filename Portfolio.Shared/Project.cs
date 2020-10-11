@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portfolio.Shared.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -6,6 +7,20 @@ namespace Portfolio.Shared
 {
     public class Project
     {
+        public Project()
+        {
+
+        }
+
+        public Project(ProjectViewModel vm)
+        {
+            this.Id = vm.Id;
+            this.Title = vm.Title;
+            this.Requirements = vm.Requirements;
+            this.Design = vm.Design;
+            this.Slug = vm.Slug;
+        }
+
         public const string LanguageCategory = "language";
         public const string PlatformCategory = "platform";
         public const string TechnologyCategory = "technology";

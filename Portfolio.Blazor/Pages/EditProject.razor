@@ -7,18 +7,24 @@
 
 <label>Project Title:</label>
 <br />
-<input type="text" @bind="Title">
+<label><MarkDownView Content="@CurrentProject.Title" /></label>
+<br />
+<input type="text">
 <br />
 <br />
 
 <label>Project Requirementes:</label>
 <br />
-<input type="text" @bind="Requirementes">
+<label><MarkDownView Content="@CurrentProject.Requirements" /></label>
+<br />
+<input type="text">
 <br />
 
 <label>Project Design:</label>
 <br />
-<input type="text" @bind="@Desgin" />
+<label><MarkDownView Content="@CurrentProject.Design" /></label>
+<br />
+<input type="text"/>
 <br />
 
 <label>Project CompletionDate: </label>
@@ -74,7 +80,7 @@
     [Parameter]
     public string Slug { get; set; }
 
-    public ProjectViewModel CurrentProject { get; set; }
+    public ProjectViewModel CurrentProject { get; set; } = new ProjectViewModel();
     public string Title { get; set; }
     public string Requirementes { get; set; }
     public string Desgin { get; set; }

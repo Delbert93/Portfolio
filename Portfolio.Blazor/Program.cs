@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Portfolio.Shared;
 using Microsoft.AspNetCore.Routing;
+using Ganss.XSS;
 
 namespace Portfolio.Blazor
 {
@@ -20,7 +21,15 @@ namespace Portfolio.Blazor
             builder.RootComponents.Add<App>("app");
 
             //TODO get this to work with base
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5005") });
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://lloyd-portfoli.herokuapp.com/") });
+            builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>(x =>
+            {
+                // Configure sanitizer rules as needed here.
+                // For now, just use default rules + allow class attributes
+                var sanitizer = new Ganss.XSS.HtmlSanitizer();
+                sanitizer.AllowedAttributes.Add("class");
+                return sanitizer;
+            });
             builder.Services.AddScoped<ProjectApiService>();
             builder.Services.Configure<RouteOptions>(options =>
             {

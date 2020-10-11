@@ -5,19 +5,21 @@
 @using Portfolio.Shared.ViewModels
 <h3>@Title</h3>
 
+
+
 <label>Project Title:</label>
-<label>@Title</label>
+<label><MarkDownView Content="@CurrentProject.Title" /></label>
 <br />
 <br /> 
 
 <label>Project Requirementes:</label>
 <br />
-<label>@Requirementes</label>
+<label><MarkDownView Content="@CurrentProject.Requirements" /></label>
 <br />
 
 <label>Project Design:</label>
 <br />
-<label>@Desgin</label>
+<label><MarkDownView Content="@CurrentProject.Design" /></label>
 <br />
 
 <label>Langauges:</label>
@@ -64,7 +66,7 @@
     [Parameter]
     public string Slug { get; set; }
 
-    public ProjectViewModel CurrentProject { get; set; }
+    public ProjectViewModel CurrentProject { get; set; } = new ProjectViewModel();
     public string Title { get; set; }
     public string Requirementes { get; set; }
     public string Desgin { get; set; }
