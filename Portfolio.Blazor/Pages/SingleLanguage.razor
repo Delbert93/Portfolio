@@ -1,4 +1,4 @@
-﻿@page "/languages/{LanguageId:int}"
+﻿@page "/languages/{slug}"
 @inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
@@ -21,6 +21,9 @@
     [Parameter]
     public int LanguageId { get; set; }
 
+    [Parameter]
+    public string Slug { get; set; }
+
     private LanguageViewModel CurrentLanguage { get; set; }
     private string Name { get; set; }
 
@@ -28,16 +31,21 @@
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentLanguage = await portfoiliApi.GetLanguageByIdAsync(LanguageId);
+        if (Slug == null)
+        {
+            return;
+        }
+        CurrentLanguage = await portfoiliApi.GetLanguageBySlugAsync(Slug);
 
         Name = CurrentLanguage.Name;
         Projects = CurrentLanguage.Projects;
+        //Todo this only lets there be one c language. So no c# and c++. 
         Projects.Distinct();
     }
 
     protected async Task NavigateToSingleProjectPage(string projectName)
     {
         var project = await portfoiliApi.GetProjectByNameAsync(projectName);
-        navManager.NavigateTo("projectentry/" + project.Id);
+        navManager.NavigateTo("projectentry/" + project.Slug);
     }
 }

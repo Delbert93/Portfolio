@@ -99,18 +99,18 @@
     protected async Task NavigateToSingleLanguagePage(string languageName)
     {
         var language = await portfoiliApi.GetLanguageByNameAsync(languageName);
-        navManager.NavigateTo("languages/" + language.Id);
+        navManager.NavigateTo("languages/" + language.Slug);
     }
 
     protected async Task NavigateToSinglePlatformPage(string platformName)
     {
         var platform = await portfoiliApi.GetPlatformByNameAsync(platformName);
-        navManager.NavigateTo("platforms/" + platform.Id);
+        navManager.NavigateTo("platforms/" + platform.Slug);
     }
 
     protected async Task NavigateToSingleTechnologyPage(string technologyName)
     {
         var technology = await portfoiliApi.GetTechnologyByNameAsync(technologyName);
-        navManager.NavigateTo("technologies/" + technology.Id);
+        navManager.NavigateTo("technologies/" + technology.Slug);
     }
 }

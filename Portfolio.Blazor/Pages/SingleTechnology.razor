@@ -43,9 +43,9 @@
     async Task refreshAsync() => CurrentTechnology = await portfoiliApi.GetTechnologyBySlugAsync(Slug);
 
     //TODO navigate by slug
-    protected async Task NavigateToSingleProjectPage(string slug)
+    protected async Task NavigateToSingleProjectPage(string projectName)
     {
-        var project = await portfoiliApi.GetProjectBySlugAsync(slug);
-        navManager.NavigateTo("projectentry/" + slug);
+        var project = await portfoiliApi.GetProjectByNameAsync(projectName);
+        navManager.NavigateTo("projectentry/" + project.Slug);
     }
 }

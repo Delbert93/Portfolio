@@ -11,7 +11,7 @@
     @foreach(var lan in languages)
     {
         <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleLanguagePage(lan.Id)">@lan.Name</a></label>
+        <label><a class="text-primary" @onclick="() => NavigateToSingleLanguagePage(lan.Slug)">@lan.Name</a></label>
         <button @onclick="() => deleteLanguageFromDatabase(lan)">Delete</button>
     }
 </div>
@@ -31,9 +31,9 @@
         await RefreshLanguageAsync();
     }
 
-    public void NavigateToSingleLanguagePage(int Id)
+    public void NavigateToSingleLanguagePage(string slug)
     {
-        navManager.NavigateTo("languages/" + Id);
+        navManager.NavigateTo("languages/" + slug);
     }
 
     private async Task RefreshLanguageAsync()

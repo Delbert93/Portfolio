@@ -11,7 +11,7 @@
     @foreach (var plat in platforms)
     {
         <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSinglePlatformPage(plat.Id)">@plat.Name</a></label>
+        <label><a class="text-primary" @onclick="() => NavigateToSinglePlatformPage(plat.Slug)">@plat.Name</a></label>
         <button @onclick="() => deletePlatformFromDatabase(plat)">Delete</button>
     }
 </div>
@@ -31,9 +31,9 @@
         await RefreshPlatformAsync();
     }
 
-    public void NavigateToSinglePlatformPage(int Id)
+    public void NavigateToSinglePlatformPage(string slug)
     {
-        navManager.NavigateTo("platforms/" + Id);
+        navManager.NavigateTo("platforms/" + slug);
     }
 
     private async Task RefreshPlatformAsync()

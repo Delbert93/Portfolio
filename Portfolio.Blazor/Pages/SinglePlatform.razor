@@ -1,4 +1,4 @@
-﻿@page "/platforms/{PlatformId:int}"
+﻿@page "/platforms/{slug}"
 @inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
@@ -19,6 +19,9 @@
     [Parameter]
     public int PlatformId { get; set; }
 
+    [Parameter]
+    public string Slug { get; set; }
+
     private PlatformViewModel CurrentPlatform { get; set; }
     private string Name { get; set; }
 
@@ -26,7 +29,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentPlatform = await portfoiliApi.GetPlatformByIdAsync(PlatformId);
+        if(Slug == null)
+        {
+            return;
+        }
+        CurrentPlatform = await portfoiliApi.GetPlatformBySlugAsync(Slug);
 
         Name = CurrentPlatform.Name;
         Projects = CurrentPlatform.Projects;
@@ -36,6 +43,6 @@
     protected async Task NavigateToSingleProjectPage(string projectName)
     {
         var project = await portfoiliApi.GetProjectByNameAsync(projectName);
-        navManager.NavigateTo("projectentry/" + project.Id);
+        navManager.NavigateTo("projectentry/" + project.Slug);
     }
 }
