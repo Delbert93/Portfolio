@@ -1,8 +1,10 @@
 ﻿@inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
+@using Portfolio.Shared.ViewModels
 
-<h3>DisplaySpecificCategory</h3>
+<h3>@Name</h3>
 
+<label>Projects That use this language:</label>
 <br />
 <div>
     @foreach (var proj in Projects ?? new string[] { })
@@ -14,7 +16,28 @@
 <br />
 
 @code {
+    [Parameter]
+    public string Slug { get; set; }
+
     private IEnumerable<string> Projects { get; set; }
+
+    private string Name { get; set; }
+
+    private LanguageViewModel CurrentLanguage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Slug == null)
+        {
+            return;
+        }
+        CurrentLanguage = await portfoiliApi.GetLanguageBySlugAsync(Slug);
+
+        Name = CurrentLanguage.Name;
+        Projects = CurrentLanguage.Projects;
+        //Todo this only lets there be one c language. So no c# and c++.
+        Projects.Distinct();
+    }
 
     protected async Task NavigateToSingleProjectPage(string projectName)
     {
