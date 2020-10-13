@@ -1,4 +1,4 @@
-﻿@inject HttpClient http
+﻿inject HttpClient http
 @inject ProjectApiService portfolioApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
@@ -15,6 +15,9 @@
 </div>
 
 @code {
+    [Parameter]
+    public string SpecificCategory { get; set; }
+
     private IEnumerable<Language> languages = new List<Language>();
 
     protected override async Task OnInitializedAsync()

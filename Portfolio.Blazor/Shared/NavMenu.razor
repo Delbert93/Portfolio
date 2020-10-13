@@ -54,8 +54,8 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
-    protected async Task NavigateToSingleProjectPage(string category)
+    protected async Task NavigateToSingleProjectPage(string specificCategory)
     {
-        navManager.NavigateTo("category/" + category);
+        navManager.NavigateTo("category/" + specificCategory);
     }
 }
