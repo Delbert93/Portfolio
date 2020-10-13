@@ -1,0 +1,24 @@
+﻿@inject Portfolio.Blazor.ProjectApiService portfoiliApi
+@inject NavigationManager navManager
+
+<h3>DisplaySpecificCategory</h3>
+
+<br />
+<div>
+    @foreach (var proj in Projects ?? new string[] { })
+    {
+        <br />
+        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(proj)">@proj</a></label>
+    }
+</div>
+<br />
+
+@code {
+    private IEnumerable<string> Projects { get; set; }
+
+    protected async Task NavigateToSingleProjectPage(string projectName)
+    {
+        var project = await portfoiliApi.GetProjectByNameAsync(projectName);
+        navManager.NavigateTo("projectentry/" + project.Slug);
+    }
+}
