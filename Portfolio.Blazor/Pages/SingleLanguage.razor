@@ -7,10 +7,4 @@
 @code {
     [Parameter]
     public string Slug { get; set; }
-
-    protected async Task NavigateToSingleProjectPage(string projectName)
-    {
-        var project = await portfoiliApi.GetProjectByNameAsync(projectName);
-        navManager.NavigateTo("projectentry/" + project.Slug);
-    }
 }

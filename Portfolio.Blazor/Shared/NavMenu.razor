@@ -1,4 +1,7 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@inject Portfolio.Blazor.ProjectApiService portfoiliApi
+@inject NavigationManager navManager
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Portfolio.Blazor</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -32,10 +35,16 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Technologies
             </NavLink>
         </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="() => NavigateToSingleProjectPage(language)">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Test
+            </NavLink>
+        </li>
     </ul>
 </div>
 
 @code {
+    private string language = "languages/";
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -43,5 +52,10 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected async Task NavigateToSingleProjectPage(string category)
+    {
+        navManager.NavigateTo("category/" + category);
     }
 }

@@ -1,0 +1,43 @@
+﻿@page "/languages"
+@inject HttpClient http
+@inject ProjectApiService portfolioApi
+@inject NavigationManager navManager
+@using Portfolio.Shared
+
+<h3>Languages</h3>
+
+<div>
+    @foreach (var lan in languages)
+    {
+        <br />
+        <label><a class="text-primary" @onclick="() => NavigateToSingleLanguagePage(lan.Slug)">@lan.Name</a></label>
+        <button @onclick="() => deleteLanguageFromDatabase(lan)">Delete</button>
+    }
+</div>
+
+@code {
+    private IEnumerable<Language> languages = new List<Language>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        languages = await portfolioApi.GetLanguageAsync();
+        languages.Distinct();
+    }
+
+    private async Task deleteLanguageFromDatabase(Language language)
+    {
+        await portfolioApi.DeleteLanguageAsync(language);
+        await RefreshLanguageAsync();
+    }
+
+    public void NavigateToSingleLanguagePage(string slug)
+    {
+        navManager.NavigateTo("languages/" + slug);
+    }
+
+    private async Task RefreshLanguageAsync()
+    {
+        languages = await portfolioApi.GetLanguageAsync();
+        languages.Distinct();
+    }
+}
