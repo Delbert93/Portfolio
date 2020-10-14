@@ -10,7 +10,7 @@
 <label>Project Title:</label>
 <label><MarkDownView Content="@CurrentProject.Title" /></label>
 <br />
-<br /> 
+<br />
 
 <label>Project Requirementes:</label>
 <br />
@@ -59,6 +59,9 @@
 <label>@CompletionDate</label>
 <br />
 
+<button><a class="text-primary" @onclick="() => NavigateToEditPage(Slug)">Edit</a></button>
+<button @onclick="(() => deleteProjectFromDatabase(Project))">Delete</button>
+
 @code {
     [Parameter]
     public int ProjectId { get; set; }
@@ -66,6 +69,7 @@
     [Parameter]
     public string Slug { get; set; }
 
+    public Project Project { get; set; } = new Project();
     public ProjectViewModel CurrentProject { get; set; } = new ProjectViewModel();
     public string Title { get; set; }
     public string Requirementes { get; set; }
@@ -78,7 +82,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if(Slug == null)
+        if (Slug == null)
         {
             return;
         }
@@ -114,5 +118,16 @@
     {
         var technology = await portfoiliApi.GetTechnologyByNameAsync(technologyName);
         navManager.NavigateTo("technologies/" + technology.Slug);
+    }
+
+    public void NavigateToEditPage(string slug)
+    {
+        navManager.NavigateTo("projectentry/edit/" + slug);
+    }
+
+    private async Task deleteProjectFromDatabase(Project project)
+    {
+        await portfoiliApi.DeleteProjectAsync(project);
+        navManager.NavigateTo("projectentry/");
     }
 }

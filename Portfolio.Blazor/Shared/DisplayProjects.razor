@@ -1,0 +1,29 @@
+﻿@inject HttpClient http
+@inject ProjectApiService portfoiliApi
+@inject NavigationManager navManager
+@using Portfolio.Shared
+
+<div>
+    @foreach (var st in projects ?? new Project[] { })
+    {
+        <br />
+        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(st.Slug)">@st.Title </a></label>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public IEnumerable<Project> projects { get; set; }
+
+    public void NavigateToSingleProjectPage(string slug)
+    {
+        navManager.NavigateTo("projectentry/" + slug);
+    }
+
+    private async Task RefreshProjectsAsync()
+    {
+        projects = await http.GetFromJsonAsync<IEnumerable<Project>>("/project");
+    }
+
+}

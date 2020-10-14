@@ -1,6 +1,26 @@
 ﻿@page "/"
+@inject HttpClient http
+@using Portfolio.Shared
 
-<h1>Hello, world!</h1>
+<h1>Mckinnin Lloyd's Software Engineering Portfolio</h1>
 
-Welcome to your new app.
-<img src="image/dog.jpg" alt="Italian Trulli">
+<DisplayProjects Projects="@projects" />
+
+@code
+{
+    private IEnumerable<Project> projects { get; set; }
+
+
+    private async Task loadProjects()
+    {
+        var response = await http.GetStringAsync("/project");
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await http.GetFromJsonAsync<IEnumerable<Project>>("/project");
+    }
+
+}
+
