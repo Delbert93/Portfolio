@@ -10,8 +10,8 @@
     @foreach (var plat in platforms)
     {
         <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSinglePlatformPage(plat.Slug)">@plat.Name</a></label>
-        <button @onclick="() => deletePlatformFromDatabase(plat)">Delete</button>
+        <label><a class="lists" @onclick="() => NavigateToSinglePlatformPage(plat.Slug)">@plat.Name</a></label>
+        <button class="myBtn" @onclick="() => deletePlatformFromDatabase(plat)">Delete</button>
     }
 </div>
 

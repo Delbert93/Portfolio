@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="image\**" />
+    <Compile Remove="wwwroot\sample-data\**" />
+    <Content Remove="image\**" />
+    <Content Remove="wwwroot\sample-data\**" />
+    <EmbeddedResource Remove="image\**" />
+    <EmbeddedResource Remove="wwwroot\sample-data\**" />
+    <None Remove="image\**" />
+    <None Remove="wwwroot\sample-data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="HtmlSanitizer" Version="5.0.353" />
     <PackageReference Include="Markdig" Version="0.22.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1" />
@@ -14,16 +25,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
     <PackageReference Include="Polly" Version="7.2.1" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1534" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Portfolio.Shared\Portfolio.Shared.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="image\" />
-    <Folder Include="wwwroot\sample-data\" />
   </ItemGroup>
 
 </Project>

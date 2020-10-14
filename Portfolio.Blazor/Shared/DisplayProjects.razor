@@ -6,8 +6,13 @@
 <div>
     @foreach (var st in projects ?? new Project[] { })
     {
-        <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(st.Slug)">@st.Title </a></label>
+        <ui>
+            <li>
+                <label>
+                    <a class="lists" @onclick="() => NavigateToSingleProjectPage(st.Slug)">@st.Title</a>
+                </label>
+            </li>
+        </ui>
     }
 </div>
 

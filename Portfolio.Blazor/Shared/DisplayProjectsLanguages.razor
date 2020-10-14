@@ -9,8 +9,13 @@
 <div>
     @foreach (var proj in Projects ?? new string[] { })
     {
-        <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(proj)">@proj</a></label>
+        <ul>
+            <li>
+                <label>
+                    <a class="lists" @onclick="() => NavigateToSingleProjectPage(proj)">@proj</a>
+                </label>
+            </li>
+        </ul>
     }
 </div>
 <br />

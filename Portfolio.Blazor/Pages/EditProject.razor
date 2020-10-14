@@ -9,7 +9,7 @@
 <br />
 <label><MarkDownView Content="@CurrentProject.Title" /></label>
 <br />
-<input type="text">
+<textarea type="text"/>
 <br />
 <br />
 
@@ -17,14 +17,14 @@
 <br />
 <label><MarkDownView Content="@CurrentProject.Requirements" /></label>
 <br />
-<input type="text">
+<textarea type="text"/>
 <br />
 
 <label>Project Design:</label>
 <br />
 <label><MarkDownView Content="@CurrentProject.Design" /></label>
 <br />
-<input type="text"/>
+<textarea type="text"/>
 <br />
 
 <label>Project CompletionDate: </label>
@@ -33,45 +33,51 @@
 <br />
 
 <label>Language:</label>
-<input type="text" @bind="languageName">
-<button @onclick="AddLanguage">Add Language</button>
+<br />
+<textarea type="text" @bind="languageName"/>
+<br />
+<button class="myBtn" @onclick="AddLanguage">Add Language</button>
 
 
 <div>
     @foreach (var lan in Languages ?? new string[] { })
     {
-        <label>@lan</label>
+        <label class="lists">@lan</label>
         <br />
     }
 </div>
 
 <label>Platform:</label>
-<input type="text" @bind="platformName">
-<button @onclick="AddPlatform">Add Platform</button>
+<br />
+<textarea type="text" @bind="platformName"/>
+<br />
+<button class="myBtn" @onclick="AddPlatform">Add Platform</button>
 
 
 <div>
     @foreach (var plat in Platforms ?? new string[] { })
     {
-        <label>@plat</label>
+        <label class="lists">@plat</label>
         <br />
     }
 </div>
 
 <label>Technology:</label>
-<input type="text" @bind="technologyName">
-<button @onclick="AddTechnology">Add Technology</button>
+<br />
+<textarea type="text" @bind="technologyName"/>
+<br />
+<button class="myBtn" @onclick="AddTechnology">Add Technology</button>
 
 
 <div>
     @foreach (var tech in Technologies ?? new string[] { })
     {
-        <label>@tech</label>
+        <label class="lists">@tech</label>
         <br />
     }
 </div>
 
-<button @onclick="SaveChanges">Update</button>
+<button class="myBtn" @onclick="SaveChanges">Update</button>
 
 @code {
     [Parameter]

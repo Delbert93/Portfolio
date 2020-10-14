@@ -10,7 +10,7 @@
     @foreach (var proj in Projects ?? new string[] { })
     {
         <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(proj)">@proj</a></label>
+        <label><a class="lists" @onclick="() => NavigateToSingleProjectPage(proj)">@proj</a></label>
     }
 </div>
 <br />

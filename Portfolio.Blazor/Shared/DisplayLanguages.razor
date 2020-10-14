@@ -9,8 +9,8 @@
     @foreach (var lan in languages)
     {
         <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleLanguagePage(lan.Slug)">@lan.Name</a></label>
-        <button @onclick="() => deleteLanguageFromDatabase(lan)">Delete</button>
+        <label><a class="lists" @onclick="() => NavigateToSingleLanguagePage(lan.Slug)">@lan.Name</a></label>
+        <button class="myBtn" @onclick="() => deleteLanguageFromDatabase(lan)">Delete</button>
     }
 </div>
 

@@ -4,18 +4,22 @@
 
 <h3>ProjectEntry</h3>
 <label>Project Name</label>
-<input type="text" @bind="title">
+<br />
+<textarea type="text" @bind="title"/>
 <br>
 <br>
 <label>Requirements:</label>
-<input type="text" @bind="requirement">
+<br />
+<textarea type="text" @bind="requirement"/>
 <br>
 <br>
 <label>Design:</label>
-<input type="text" @bind="design">
+<br />
+<textarea type="text" @bind="design"/>
 <br>
 <br>
-<input type="date" @bind="completionDate" />
+<textarea type="date" @bind="completionDate" />
+<br />
 <button @onclick="addProjectToDatabase">Submit Project!</button>
 
 <DisplayProjects Projects="@projects"/>
