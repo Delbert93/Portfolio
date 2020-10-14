@@ -19,11 +19,27 @@
     public string SpecificCategory { get; set; }
 
     private IEnumerable<Language> languages = new List<Language>();
+    private IEnumerable<Platform> platforms = new List<Platform>();
+    private IEnumerable<Technology> technologies = new List<Technology>();
 
     protected override async Task OnInitializedAsync()
     {
-        languages = await portfolioApi.GetLanguageAsync();
-        languages.Distinct();
+        if(SpecificCategory == "languages/")
+        {
+            languages = await portfolioApi.GetLanguageAsync();
+            languages.Distinct();
+        }
+        if(SpecificCategory == "platforms/")
+        {
+            platforms = await portfolioApi.GetPlatformAsync();
+            platforms.Distinct();
+        }
+        else
+        {
+            technologies = await portfolioApi.GetTechnologyAsync();
+            technologies.Distinct();
+        }
+
     }
 
     private async Task deleteLanguageFromDatabase(Language language)
