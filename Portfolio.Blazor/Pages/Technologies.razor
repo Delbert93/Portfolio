@@ -1,44 +1,6 @@
 ﻿@page "/technologies"
-@inject HttpClient http
-@inject ProjectApiService portfolioApi
-@inject NavigationManager navManager
-@using Portfolio.Shared
-@using Portfolio.Shared.ViewModels
-
-<h3>Technologies</h3>
-
-<div>
-    @foreach (var tech in technologies)
-    {
-        <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleTechnologyPage(tech.Slug)">@tech.Name</a></label>
-        <button @onclick="() => deleteTechnologyFromDatabase(tech)">Delete</button>
-    }
-</div>
+<DisplayTechnology/>
 
 @code {
-    private IEnumerable<Technology> technologies = new List<Technology>();
 
-    protected override async Task OnInitializedAsync()
-    {
-        technologies = await portfolioApi.GetTechnologyAsync();
-        technologies.Distinct();
-    }
-
-    private async Task deleteTechnologyFromDatabase(Technology technology)
-    {
-        await portfolioApi.DeleteTechnologyAsync(technology);
-        await RefreshTechnologyAsync();
-    }
-
-    public void NavigateToSingleTechnologyPage(string slug)
-    {
-        navManager.NavigateTo("technologies/" + slug);
-    }
-
-    private async Task RefreshTechnologyAsync()
-    {
-        technologies = await portfolioApi.GetTechnologyAsync();
-        technologies.Distinct();
-    }
 }
