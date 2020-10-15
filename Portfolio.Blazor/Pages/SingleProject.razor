@@ -61,8 +61,8 @@
 <label>@CompletionDate</label>
 <br />
 
-<button><a class="editButton" @onclick="() => NavigateToEditPage(Slug)">Edit</a></button>
-<button @onclick="(() => deleteProjectFromDatabase(Project))">Delete</button>
+<button class="myBtn"><a @onclick="() => NavigateToEditPage(Slug)">Edit</a></button>
+<button class="myBtn" @onclick="(() => deleteProjectFromDatabase(Project))">Delete</button>
 
 @code {
     [Parameter]
