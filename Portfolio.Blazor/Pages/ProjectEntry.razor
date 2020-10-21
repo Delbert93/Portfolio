@@ -1,46 +1,39 @@
 ﻿@page "/projectentry"
 @inject HttpClient http
-@inject ProjectApiService portfoiliApi
-@inject NavigationManager navManager
 @using Portfolio.Shared
 
 <h3>ProjectEntry</h3>
 <label>Project Name</label>
-<input type="text" @bind="title">
+<br />
+<textarea type="text" @bind="title"/>
 <br>
 <br>
 <label>Requirements:</label>
-<input type="text" @bind="requirement">
+<br />
+<textarea type="text" @bind="requirement"/>
 <br>
 <br>
 <label>Design:</label>
-<input type="text" @bind="design">
+<br />
+<textarea type="text" @bind="design"/>
 <br>
 <br>
-<input type="date" @bind="completionDate" />
-<button @onclick="addProjectToDatabase">Submit Project!</button>
+<textarea type="date" @bind="completionDate" />
+<br />
+<button class="myBtn" @onclick="addProjectToDatabase">Submit Project!</button>
 
-<div>
-    <label>Projects should show here</label>
-    @foreach (var st in projects ?? new Project[] { })
-    {
-        <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(st.Slug)">@st.Title </a></label>
-        <button><a class="text-primary" @onclick="() => NavigateToEditPage(st.Slug)">Edit</a></button>
-        <button @onclick="(() => deleteProjectFromDatabase(st))">Delete</button>
-    }
-</div>
+<DisplayProjects Projects="@projects"/>
 
 @code
 {
+    private IEnumerable<Project> projects { get; set; }
+
     private string title = " ";
     private string requirement = " ";
     private string design = " ";
     private string langaugeName = " ";
     private DateTime completionDate;
 
-
-    private IEnumerable<Project> projects { get; set; }
 
     private async Task addProjectToDatabase()
     {
@@ -62,23 +55,6 @@
 
         await RefreshProjectsAsync();
     }
-
-    public void NavigateToSingleProjectPage(string slug)
-    {
-        navManager.NavigateTo("projectentry/" + slug);
-    }
-
-    public void NavigateToEditPage(string slug)
-    {
-        navManager.NavigateTo("projectentry/edit/" + slug);
-    }
-
-    private async Task deleteProjectFromDatabase(Project project)
-    {
-        await portfoiliApi.DeleteProjectAsync(project);
-        await RefreshProjectsAsync();
-    }
-
 
 
     private async Task loadProjects()

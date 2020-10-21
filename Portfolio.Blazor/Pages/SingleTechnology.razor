@@ -1,51 +1,10 @@
 ﻿@page "/technologies/{slug}"
 @inject Portfolio.Blazor.ProjectApiService portfoiliApi
 @inject NavigationManager navManager
-@using Portfolio.Shared
-@using Portfolio.Shared.ViewModels
 
-<label>Projects That use this technology:</label>
-<br />
-<div>
-    @foreach (var proj in Projects ?? new string[] { })
-    {
-        <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleProjectPage(proj)">@proj</a></label>
-    }
-</div>
-<br />
+<DisplayProjectsTechnologies Slug="@Slug" />
 
 @code {
     [Parameter]
-    public int TechnologyId { get; set; }
-
-    [Parameter]
     public string Slug { get; set; }
-
-    private TechnologyViewModel CurrentTechnology { get; set; }
-    private string Name { get; set; }
-
-    private IEnumerable<string> Projects { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        if(Slug == null)
-        {
-            return;
-        }
-        CurrentTechnology = await portfoiliApi.GetTechnologyBySlugAsync(Slug);
-
-        Name = CurrentTechnology.Name;
-        Projects = CurrentTechnology.Projects;
-        Projects.Distinct();
-    }
-
-    async Task refreshAsync() => CurrentTechnology = await portfoiliApi.GetTechnologyBySlugAsync(Slug);
-
-    //TODO navigate by slug
-    protected async Task NavigateToSingleProjectPage(string projectName)
-    {
-        var project = await portfoiliApi.GetProjectByNameAsync(projectName);
-        navManager.NavigateTo("projectentry/" + project.Slug);
-    }
 }

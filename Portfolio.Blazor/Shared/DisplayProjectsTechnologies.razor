@@ -1,0 +1,47 @@
+﻿@inject Portfolio.Blazor.ProjectApiService portfoiliApi
+@inject NavigationManager navManager
+@using Portfolio.Shared.ViewModels
+
+<h3>@Name</h3>
+
+<label>Projects That use @Name:</label>
+<br />
+<div>
+    @foreach (var proj in Projects ?? new string[] { })
+    {
+        <br />
+        <label><a class="lists" @onclick="() => NavigateToSingleProjectPage(proj)">@proj</a></label>
+    }
+</div>
+<br />
+
+@code {
+    [Parameter]
+    public string Slug { get; set; }
+
+    private IEnumerable<string> Projects { get; set; }
+
+    private string Name { get; set; }
+
+    private TechnologyViewModel CurrentTechnology { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Slug == null)
+        {
+            return;
+        }
+        CurrentTechnology = await portfoiliApi.GetTechnologyBySlugAsync(Slug);
+
+        Name = CurrentTechnology.Name;
+        Projects = CurrentTechnology.Projects;
+        //Todo this only lets there be one c language. So no c# and c++.
+        Projects.Distinct();
+    }
+
+    protected async Task NavigateToSingleProjectPage(string projectName)
+    {
+        var project = await portfoiliApi.GetProjectByNameAsync(projectName);
+        navManager.NavigateTo("projectentry/" + project.Slug);
+    }
+}

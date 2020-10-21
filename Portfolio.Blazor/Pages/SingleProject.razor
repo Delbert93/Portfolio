@@ -3,61 +3,66 @@
 @inject NavigationManager navManager
 @using Portfolio.Shared
 @using Portfolio.Shared.ViewModels
-<h3>@Title</h3>
 
+<h1>@Title</h1>
 
-
-<label>Project Title:</label>
-<label><MarkDownView Content="@CurrentProject.Title" /></label>
-<br />
-<br /> 
-
-<label>Project Requirementes:</label>
+<h2>Project Goals:</h2>
 <br />
 <label><MarkDownView Content="@CurrentProject.Requirements" /></label>
 <br />
 
-<label>Project Design:</label>
+<h2>Project Out Comes:</h2>
 <br />
 <label><MarkDownView Content="@CurrentProject.Design" /></label>
 <br />
 
-<label>Langauges:</label>
+<h2>Technology/Langauges:</h2>
 <br />
 <div>
     @foreach (var lan in Languages ?? new string[] { })
     {
-        <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleLanguagePage(lan)">@lan</a></label>
+    <ul>
+        <li>
+            <label>
+                <a class="lists" @onclick="() => NavigateToSingleLanguagePage(lan)">@lan</a>
+            </label>
+        </li>
+    </ul>
+        
     }
 </div>
-<br />
-
-<label>Platforms:</label>
-<br />
 <div>
     @foreach (var plat in Platforms ?? new string[] { })
     {
-        <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSinglePlatformPage(plat)">@plat</a></label>
+        <ul>
+            <li>
+                <label>
+                    <a class="lists" @onclick="() => NavigateToSinglePlatformPage(plat)">@plat</a>
+                </label>
+            </li>
+        </ul>
     }
 </div>
-<br />
-
-<label>Technology:</label>
-<br />
 <div>
     @foreach (var tech in Technologies ?? new string[] { })
     {
-        <br />
-        <label><a class="text-primary" @onclick="() => NavigateToSingleTechnologyPage(tech)">@tech</a></label>
+        <ul>
+            <li>
+                <label>
+                    <a class="lists" @onclick="() => NavigateToSingleTechnologyPage(tech)">@tech</a>
+                </label>
+            </li>
+        </ul>
     }
 </div>
 <br />
 
-<label>Project CompletionDate: </label>
+<h2>Project CompletionDate: </h2>
 <label>@CompletionDate</label>
 <br />
+
+<button class="myBtn"><a @onclick="() => NavigateToEditPage(Slug)">Edit</a></button>
+<button class="myBtn" @onclick="(() => deleteProjectFromDatabase(Project))">Delete</button>
 
 @code {
     [Parameter]
@@ -66,6 +71,7 @@
     [Parameter]
     public string Slug { get; set; }
 
+    public Project Project { get; set; } = new Project();
     public ProjectViewModel CurrentProject { get; set; } = new ProjectViewModel();
     public string Title { get; set; }
     public string Requirementes { get; set; }
@@ -78,7 +84,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if(Slug == null)
+        if (Slug == null)
         {
             return;
         }
@@ -114,5 +120,16 @@
     {
         var technology = await portfoiliApi.GetTechnologyByNameAsync(technologyName);
         navManager.NavigateTo("technologies/" + technology.Slug);
+    }
+
+    public void NavigateToEditPage(string slug)
+    {
+        navManager.NavigateTo("projectentry/edit/" + slug);
+    }
+
+    private async Task deleteProjectFromDatabase(Project project)
+    {
+        await portfoiliApi.DeleteProjectAsync(project);
+        navManager.NavigateTo("projectentry/");
     }
 }
