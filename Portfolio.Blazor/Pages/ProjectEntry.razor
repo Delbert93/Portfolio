@@ -1,28 +1,28 @@
 ﻿@page "/projectentry"
-@inject HttpClient http
 @using Portfolio.Shared
+@inject ProjectApiService portfoilApi
 
 <h3>ProjectEntry</h3>
 <label>Project Name</label>
 <br />
-<textarea type="text" @bind="title"/>
+<textarea type="text" @bind="title" />
 <br>
 <br>
 <label>Requirements:</label>
 <br />
-<textarea type="text" @bind="requirement"/>
+<textarea type="text" @bind="requirement" />
 <br>
 <br>
 <label>Design:</label>
 <br />
-<textarea type="text" @bind="design"/>
+<textarea type="text" @bind="design" />
 <br>
 <br>
 <textarea type="date" @bind="completionDate" />
 <br />
 <button class="myBtn" @onclick="addProjectToDatabase">Submit Project!</button>
 
-<DisplayProjects Projects="@projects"/>
+<DisplayProjects/>
 
 @code
 {
@@ -46,7 +46,7 @@
         };
         try
         {
-            var response = await http.PostAsJsonAsync("/project", project);
+            await portfoilApi.AddProjectAsync(project);
         }
         catch (Exception e)
         {
@@ -57,23 +57,15 @@
     }
 
 
-    private async Task loadProjects()
-    {
-        var response = await http.GetStringAsync("/project");
-    }
-
-
-
     protected override async Task OnInitializedAsync()
     {
         await RefreshProjectsAsync();
     }
 
 
-
     private async Task RefreshProjectsAsync()
     {
-        projects = await http.GetFromJsonAsync<IEnumerable<Project>>("/project");
+        projects = await portfoilApi.GetProjectsAsync();
     }
 
 }

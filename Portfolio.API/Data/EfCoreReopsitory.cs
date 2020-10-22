@@ -120,7 +120,7 @@ namespace Portfolio.API.Data
 
         public async Task SaveProjectAsync(Project project)
         {
-            if(project.Slug == null)
+            if(project.Id == 0)
             {
                 project.Slug = project.Title.ToSlug();
                 context.Projects.Add(project);
@@ -135,7 +135,7 @@ namespace Portfolio.API.Data
 
         public async Task SaveLanuguageAsync(Language language)
         {
-            if (language.Slug == null)
+            if (language.Id == 0)
             {
                 language.Slug = language.Name.ToSlug();
                 context.Languages.Add(language);
@@ -150,7 +150,7 @@ namespace Portfolio.API.Data
 
         public async Task SavePlatformAsync(Platform platform)
         {
-            if (platform.Slug == null)
+            if (platform.Id == 0)
             {
                 platform.Slug = platform.Name.ToSlug();
                 context.Platforms.Add(platform);
@@ -165,7 +165,7 @@ namespace Portfolio.API.Data
 
         public async Task SaveTechnologyAsync(Technology technology)
         {
-            if (technology.Slug == null)
+            if (technology.Id == 0)
             {
                 technology.Slug = technology.Name.ToSlug();
                 context.Technologies.Add(technology);
