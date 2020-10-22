@@ -1,17 +1,15 @@
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Portfolio.Shared;
 using Microsoft.AspNetCore.Routing;
 using Ganss.XSS;
-using Polly.Extensions.Http;
+using Microsoft.Extensions.Http;
 using Polly;
+using Polly.Extensions.Http;
+
 
 namespace Portfolio.Blazor
 {
@@ -23,7 +21,11 @@ namespace Portfolio.Blazor
             builder.RootComponents.Add<App>("app");
 
             //TODO get this to work with base
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["APIBaseAddress"]) });
+            //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["APIBaseAddress"]) });
+            builder.Services.AddScoped<ProjectApiService>();
+            builder.Services.AddHttpClient<ProjectApiService>(hc => hc.BaseAddress = new Uri(builder.Configuration["APIBaseAddress"]))
+                .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+                .AddPolicyHandler(GetRetryPolicy());
             builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>(x =>
             {
                 // Configure sanitizer rules as needed here.
@@ -32,7 +34,6 @@ namespace Portfolio.Blazor
                 sanitizer.AllowedAttributes.Add("class");
                 return sanitizer;
             });
-            builder.Services.AddScoped<ProjectApiService>();
             builder.Services.Configure<RouteOptions>(options =>
             {
                 options.ConstraintMap.Add("slug", typeof(SlugParameterTransformer));

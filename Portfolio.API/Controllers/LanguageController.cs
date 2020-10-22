@@ -18,7 +18,7 @@ namespace Portfolio.API.Controllers
 
         public LanguageController(IRepository repository)
         {
-            this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            this.repository = repository;
         }
 
         [HttpGet()]

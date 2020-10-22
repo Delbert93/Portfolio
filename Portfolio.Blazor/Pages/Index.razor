@@ -1,29 +1,16 @@
 ﻿@page "/"
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration config
-@inject HttpClient http
-@using Portfolio.Shared
+
+
 
 <h1>Mckinnin Lloyd's Software Engineering Portfolio</h1>
 @config["MyKey"]
 
-<DisplayProjects Projects="@projects" />
+<DisplayProjects/>
 
 @code
 {
-    private IEnumerable<Project> projects { get; set; }
-
-
-    private async Task loadProjects()
-    {
-        var response = await http.GetStringAsync("/project");
-    }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        projects = await http.GetFromJsonAsync<IEnumerable<Project>>("/project");
-    }
 
 }
 

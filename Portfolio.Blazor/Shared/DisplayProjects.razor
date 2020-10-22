@@ -1,7 +1,7 @@
-﻿@inject HttpClient http
-@inject ProjectApiService portfoiliApi
+﻿@inject ProjectApiService portfoilApi
 @inject NavigationManager navManager
 @using Portfolio.Shared
+@using Polly
 
 <div>
     @foreach (var st in projects ?? new Project[] { })
@@ -17,8 +17,6 @@
 </div>
 
 @code {
-
-    [Parameter]
     public IEnumerable<Project> projects { get; set; }
 
     public void NavigateToSingleProjectPage(string slug)
@@ -26,9 +24,16 @@
         navManager.NavigateTo("projectentry/" + slug);
     }
 
-    private async Task RefreshProjectsAsync()
+    protected override async Task OnInitializedAsync()
     {
-        projects = await http.GetFromJsonAsync<IEnumerable<Project>>("/project");
+        await Polly.Policy
+            .Handle<TimeoutException>()
+            .WaitAndRetryForever(retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
+            .Execute(async () =>
+            {
+                System.Diagnostics.Debug.WriteLine("Trying to make the call again...");
+                projects = await portfoilApi.GetProjectsAsync();
+            });
     }
 
 }
