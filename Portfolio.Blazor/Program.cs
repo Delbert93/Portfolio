@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Portfolio.Shared;
 using Microsoft.AspNetCore.Routing;
 using Ganss.XSS;
+using Polly.Extensions.Http;
+using Polly;
 
 namespace Portfolio.Blazor
 {
@@ -37,6 +39,14 @@ namespace Portfolio.Blazor
             });
 
             await builder.Build().RunAsync();
+        }
+        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            var jitterer = new Random();
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)) + TimeSpan.FromMilliseconds(jitterer.Next(0, 100)));
         }
     }
 }
