@@ -1,49 +1,21 @@
-﻿
-
-<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Portfolio</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="projectentry">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Project Entry
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="languages">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Languages
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="platforms">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Platforms
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="technologies">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Technologies
-            </NavLink>
-        </li>
-    </ul>
-</div>
+﻿<ul class="navbar">
+    <li class="navItems">
+        <a href="">Home</a>
+    </li>
+    <li class="navItems">
+        <a href="projectentry">Project Entry</a>
+    </li>
+    <li class="navItems">
+        <a href="languages">Languages</a>
+    </li>
+    <li class="navItems">
+        <a href="platforms">Platforms</a>
+    </li>
+    <li class="navItems">
+        <a href="technologies">Technologies</a>
+    </li>
+</ul>
 
 @code {
-    private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
 }
