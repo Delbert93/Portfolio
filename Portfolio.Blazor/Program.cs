@@ -9,7 +9,7 @@ using Ganss.XSS;
 using Microsoft.Extensions.Http;
 using Polly;
 using Polly.Extensions.Http;
-
+using Microsoft.Extensions.Configuration;
 
 namespace Portfolio.Blazor
 {
@@ -20,12 +20,19 @@ namespace Portfolio.Blazor
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            //TODO get this to work with base
-            //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["APIBaseAddress"]) });
             builder.Services.AddScoped<ProjectApiService>();
             builder.Services.AddHttpClient<ProjectApiService>(hc => hc.BaseAddress = new Uri(builder.Configuration["APIBaseAddress"]))
                 .SetHandlerLifetime(TimeSpan.FromMinutes(5))
                 .AddPolicyHandler(GetRetryPolicy());
+
+            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            builder.Services.AddOidcAuthentication(options =>
+            {
+                builder.Configuration.Bind("Auth0", options.ProviderOptions);
+                options.ProviderOptions.ResponseType = "code";
+            });
+
             builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>(x =>
             {
                 // Configure sanitizer rules as needed here.
