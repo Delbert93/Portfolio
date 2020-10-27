@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Portfolio.Shared.ViewModels;
-    
+using Microsoft.AspNetCore.Authorization;
+
 namespace Portfolio.API.Controllers
 {
     [Route("[controller]")]
@@ -78,18 +79,21 @@ namespace Portfolio.API.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task Delete(Project project)
         {
             await repository.DeleteProjectAsync(project.Id);
         }
 
         [HttpPost("[action]")]
+        [Authorize]
         public async Task Edit(ProjectViewModel project)
         {
             await repository.EditProjectAsync(project);
         }
 
         [HttpPost()]
+        [Authorize]
         public async Task Post(Project project)
         {
             await repository.SaveProjectAsync(project);

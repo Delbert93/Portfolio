@@ -2,18 +2,22 @@
 @inject NavigationManager navManager
 @using Portfolio.Shared
 @using Polly
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using System.Net.Http.Headers
+@inject IAccessTokenProvider TokenProvider
+@attribute [Authorize]
 
 <div style="text-align: center;">
     @foreach (var st in projects ?? new Project[] { })
     {
-    <ui class="project-time">
-        <article>
-            <li>
-                <a class="project-title" @onclick="() => NavigateToSingleProjectPage(st.Slug)">@st.Title</a>
-            </li>
-        </article>
-    </ui>
-    <br />
+        <ui class="project-time">
+            <article>
+                <li>
+                    <a class="project-title" @onclick="() => NavigateToSingleProjectPage(st.Slug)">@st.Title</a>
+                </li>
+            </article>
+        </ui>
+        <br />
     }
 </div>
 
