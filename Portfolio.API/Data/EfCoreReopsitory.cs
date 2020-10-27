@@ -115,6 +115,7 @@ namespace Portfolio.API.Data
         {
             //TODO assign correct information to project
             //context.Projects.Update(project);
+            //
             await context.SaveChangesAsync();
         }
 
