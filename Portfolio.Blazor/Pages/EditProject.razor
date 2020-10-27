@@ -5,32 +5,45 @@
 @using Portfolio.Shared.ViewModels
 <h3>EditProject</h3>
 
-<label>Project Title:</label>
-<br />
-<label><MarkDownView Content="@CurrentProject.Title" /></label>
-<br />
-<textarea type="text"/>
-<br />
-<br />
-
-<label>Project Requirementes:</label>
-<br />
-<label><MarkDownView Content="@CurrentProject.Requirements" /></label>
-<br />
-<textarea type="text"/>
-<br />
-
-<label>Project Design:</label>
-<br />
-<label><MarkDownView Content="@CurrentProject.Design" /></label>
-<br />
-<textarea type="text"/>
-<br />
-
-<label>Project CompletionDate: </label>
-<br />
-<input typp="date" @bind="CompletionDate">
-<br />
+<div class="container">
+    <div class="row">
+        <div class="col-25">
+            <label for="fname">Project Title</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="fname" name="title" placeholder="@Title" @bind="Title">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            <label for="subject">Requirements</label>
+        </div>
+        <div class="col-75">
+            <textarea id="subject" name="design" style="height:200px" placeholder="@Requirementes" @bind="Requirementes"></textarea>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col-25">
+            <label for="subject">Design</label>
+        </div>
+        <div class="col-75">
+            <textarea id="subject" name="design" style="height:200px" placeholder="@Desgin" @bind="Desgin"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+            <label for="fname">Completion Date</label>
+        </div>
+        <div class="col-75">
+            <input type="date" placeholder="@CompletionDate" id="fname" name="completion Date" @bind="CompletionDate">
+        </div>
+    </div>
+    <div class="row">
+        <button class="myBtn" @onclick="SaveChanges">Update</button>
+    </div>
+</div>
 
 <label>Language:</label>
 <br />
@@ -133,7 +146,7 @@
         CurrentProject.CompletionDate = CompletionDate;
 
         await portfolioApi.Edit(CurrentProject);
-        navManager.NavigateTo("https://delbert93.github.io/Portfolio/projectentry");
+        //navManager.NavigateTo("https://delbert93.github.io/Portfolio/projectentry");
     }
 
     private async Task RefreshProjectsAsync()

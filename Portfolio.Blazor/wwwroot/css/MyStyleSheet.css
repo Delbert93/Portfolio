@@ -1,5 +1,6 @@
 ﻿body {
     margin: 0px;
+    align-content: center;
 }
 
 .navbar {
@@ -27,9 +28,14 @@
         background-color: #111;
     }
 
+div {
+    list-style-type: none;
+}
+
 ul {
     display: block;
     list-style-type: none;
+    text-align: center;
 }
 
 h1 {
@@ -41,6 +47,14 @@ h2 {
     text-align: left;
     font-family: Helvetica;
     color: #1F271B;
+}
+
+h3{
+    text-align: center;
+}
+
+label{
+    text-align: center; 
 }
 
 .myBtn {
@@ -62,16 +76,68 @@ h2 {
 
 .project-title {
     display: inline-block;
-    list-style-type: none;
     font-size: 1.8em;
     color: #222;
     line-height: 1.4em;
+    border-bottom: 1px solid grey;
+    width: auto;
+    cursor: pointer;
 }
 
-.project-time {
+.project-entry {
+    display: block;
+    text-align: center;
+    align-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
     display: inline-block;
-    text-transform: uppercase;
-    text-align: right;
-    line-height: 2.2em;
-    color: rgb(170, 170, 170);
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
 }

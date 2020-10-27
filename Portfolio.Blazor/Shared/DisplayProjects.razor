@@ -3,20 +3,13 @@
 @using Portfolio.Shared
 @using Polly
 
-<div>
+<div style="text-align: center;">
     @foreach (var st in projects ?? new Project[] { })
     {
     <ui class="project-time">
         <article>
-            <li class="projectListItems">
-                <label>
-                    @st.CompletionDate
-                </label>
-            </li>
             <li>
-                <label>
-                    <a class="project-title" @onclick="() => NavigateToSingleProjectPage(st.Slug)">@st.Title</a>
-                </label>
+                <a class="project-title" @onclick="() => NavigateToSingleProjectPage(st.Slug)">@st.Title</a>
             </li>
         </article>
     </ui>
