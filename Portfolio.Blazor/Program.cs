@@ -31,6 +31,7 @@ namespace Portfolio.Blazor
             {
                 builder.Configuration.Bind("Auth0", options.ProviderOptions);
                 options.ProviderOptions.ResponseType = "code";
+                options.ProviderOptions.DefaultScopes.Add("https://schemas.dev-01xt5ns9.com/roles");
             });
 
             builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>(x =>

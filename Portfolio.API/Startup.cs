@@ -36,6 +36,11 @@ namespace Portfolio.API
             {
                 options.Authority = $"{Configuration["Auth0:Domain"]}/";
                 options.Audience = Configuration["Auth0:Audience"];
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    NameClaimType = "Roles",
+                    RoleClaimType = "https://schemas.dev-01xt5ns9.com/roles"
+                };
             });
 
             services.AddControllers();

@@ -79,21 +79,21 @@ namespace Portfolio.API.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize]
+        [Authorize(Roles = Roles.Admin)]
         public async Task Delete(Project project)
         {
             await repository.DeleteProjectAsync(project.Id);
         }
 
         [HttpPost("[action]")]
-        [Authorize]
+        [Authorize(Roles = Roles.Admin)]
         public async Task Edit(ProjectViewModel project)
         {
             await repository.EditProjectAsync(project);
         }
 
         [HttpPost()]
-        [Authorize]
+        [Authorize(Roles = Roles.Admin)]
         public async Task Post(Project project)
         {
             await repository.SaveProjectAsync(project);
