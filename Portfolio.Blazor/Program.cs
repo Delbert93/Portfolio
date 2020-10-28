@@ -10,6 +10,7 @@ using Microsoft.Extensions.Http;
 using Polly;
 using Polly.Extensions.Http;
 using Microsoft.Extensions.Configuration;
+using Portfolio.BlazorWasm;
 
 namespace Portfolio.Blazor
 {
@@ -18,10 +19,12 @@ namespace Portfolio.Blazor
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            builder.Services.AddScoped<Auth0AuthorizationMessageHandler>();
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped<ProjectApiService>();
             builder.Services.AddHttpClient<ProjectApiService>(hc => hc.BaseAddress = new Uri(builder.Configuration["APIBaseAddress"]))
+                .AddHttpMessageHandler<Auth0AuthorizationMessageHandler>()
                 .SetHandlerLifetime(TimeSpan.FromMinutes(5))
                 .AddPolicyHandler(GetRetryPolicy());
 

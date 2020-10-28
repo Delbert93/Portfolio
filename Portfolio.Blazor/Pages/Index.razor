@@ -3,10 +3,18 @@
 @inject IConfiguration config
 
 
-
 <h1>Mckinnin Lloyd's Software Engineering Portfolio</h1>
 
-<DisplayProjects/>
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <p>You're in the admin group!</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>NOT AN ADMIN!</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+<DisplayProjects />
 
 @code
 {

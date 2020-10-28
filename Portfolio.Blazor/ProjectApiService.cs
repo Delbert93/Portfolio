@@ -1,4 +1,5 @@
-﻿using Portfolio.Shared;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Portfolio.Shared;
 using Portfolio.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace Portfolio.Blazor
     public class ProjectApiService
     {
         private readonly HttpClient client;
+        private readonly IAccessTokenProvider tokenProvider;
 
-        public ProjectApiService(HttpClient client)
+        public ProjectApiService(HttpClient client, IAccessTokenProvider tokenProvider)
         {
-            this.client = client ?? throw new ArgumentNullException(nameof(client));
+            this.client = client;
+            this.tokenProvider = tokenProvider;
         }
 
         public async Task<IEnumerable<Project>> GetProjectsAsync()
