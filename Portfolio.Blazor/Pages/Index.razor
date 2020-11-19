@@ -1,35 +1,23 @@
 ﻿@page "/"
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration config
-@inject AuthenticationStateProvider authStateProvider
 
 
 <h1>Mckinnin Lloyd's Software Engineering Portfolio</h1>
 
-@if (isAdmin)
-{
-    <h3>admin</h3>
-}
-else
-{
-    <h3>Still not an admin. :(</h3>}
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <p>You're in the admin group!</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>NOT AN ADMIN!</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 <DisplayProjects />
 
 @code
 {
-    bool isAdmin;
-
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await authStateProvider.GetAuthenticationStateAsync();
-        var roles = from c in authState.User.Claims
-                    where c.Type == "https://schemas.dev-01xt5ns9.com/roles"
-                    select c.Value;
-        isAdmin = roles.Any(r => r.Contains("Admin"));
-    } }
 
 }
 
