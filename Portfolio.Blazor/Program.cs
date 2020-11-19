@@ -18,10 +18,14 @@ namespace Portfolio.Blazor
     {
         public static async Task Main(string[] args)
         {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.Services.AddScoped<Auth0AuthorizationMessageHandler>();
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);     
             builder.RootComponents.Add<App>("app");
 
+            builder.Services.AddHttpClient<ProjectApiService>(hc => hc.BaseAddress = new Uri(builder.Configuration["APIBaseAddress"]))              
+                .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+                .AddPolicyHandler(GetRetryPolicy());
+
+            builder.Services.AddScoped<Auth0AuthorizationMessageHandler>();
             builder.Services.AddScoped<ProjectApiService>();
             builder.Services.AddHttpClient<ProjectApiService>(hc => hc.BaseAddress = new Uri(builder.Configuration["APIBaseAddress"]))
                 .AddHttpMessageHandler<Auth0AuthorizationMessageHandler>()
